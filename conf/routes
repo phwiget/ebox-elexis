@@ -3,9 +3,17 @@
 # ~~~~
 
 
-GET     /                           controllers.HomeController.index
+GET     /                           controllers.ApplicationCtrl.index
 
+GET		/login						controllers.LoginCtrl.index
+POST	/login						controllers.LoginCtrl.login
+
+#I18N
+GET		/messages/*locator			controllers.Resources.messages(locator:String)
+GET		/language/set				controllers.Resources.setLanguage(lang:String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET		/resource					controllers.ResourceCtrl.index
+GET 	/resources/*file			controllers.Resources.get(path="/public", file:Asset)
+GET 	/dist/*file					controllers.Resources.dist(path="/public", file:Asset)
+GET 	/jspm_packages/*file		controllers.Resources.jspm(path="/public", file:Asset)
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
