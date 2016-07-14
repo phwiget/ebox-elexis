@@ -1,0 +1,13 @@
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+/frontend/node_modules
+/frontend/typings
+/RUNNING_PID
+*.ipr
+*.iws
