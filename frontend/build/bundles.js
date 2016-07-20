@@ -35,9 +35,9 @@ module.exports = {
         "material-kit",
         "bootstrap-datepicker",
         "mmenu",
-        "custom:creative_tim/css/material-all.css!text",
-        "custom:mmenu/dist/css/hamburger.css!text",
-        "custom:mmenu/dist/css/jquery.mmenu.custom.css!text"
+        "github:custom/creative_tim/css/material-all.css!text",
+        "github:custom/mmenu/dist/css/hamburger.css!text",
+        "github:custom/mmenu/dist/css/jquery.mmenu.custom.css!text"
       ],
       "options": {
         "inject": true,

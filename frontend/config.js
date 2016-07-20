@@ -4,9 +4,9 @@ System.config({
   paths: {
     "*": "dist/*",
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*",
-    "custom:*": "custom/*"
+    "npm:*": "jspm_packages/npm/*"
   },
+
   meta: {
     "bootstrap": {
       "deps": [
@@ -42,12 +42,14 @@ System.config({
       ]
     }
   },
+
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0-rc.1.0.0",
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-rc.1.0.0",
     "aurelia-fetch-client": "npm:aurelia-fetch-client@1.0.0-rc.1.0.0",
     "aurelia-framework": "npm:aurelia-framework@1.0.0-rc.1.0.0",
     "aurelia-history-browser": "npm:aurelia-history-browser@1.0.0-rc.1.0.0",
+    "aurelia-http-client": "npm:aurelia-http-client@1.0.0-rc.1.0.0",
     "aurelia-loader-default": "npm:aurelia-loader-default@1.0.0-rc.1.0.0",
     "aurelia-logging-console": "npm:aurelia-logging-console@1.0.0-rc.1.0.0",
     "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-rc.1.0.0",
@@ -58,15 +60,15 @@ System.config({
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0-rc.1.0.0",
     "bluebird": "npm:bluebird@3.4.1",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
+    "bootstrap-datepicker": "github:custom/creative_tim/js/bootstrap-datepicker.js",
     "fetch": "github:github/fetch@1.0.0",
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@2.2.4",
+    "jquery-mobile": "github:custom/mmenu/src/js/jquery.mobile.custom.js",
+    "material": "github:custom/creative_tim/js/material.min.js",
+    "material-kit": "github:custom/creative_tim/js/material-kit.js",
+    "mmenu": "github:custom/mmenu/src/js/jquery.mmenu.src.js",
     "text": "github:systemjs/plugin-text@0.0.8",
-    "material": "custom:creative_tim/js/material.min.js",
-    "material-kit": "custom:creative_tim/js/material-kit.js",
-    "bootstrap-datepicker": "custom:creative_tim/js/bootstrap-datepicker.js",
-    "mmenu": "custom:mmenu/src/js/jquery.mmenu.src.js",
-    "jquery-mobile": "custom:mmenu/src/js/jquery.mobile.custom.js",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -139,6 +141,10 @@ System.config({
     "npm:aurelia-history-browser@1.0.0-rc.1.0.0": {
       "aurelia-history": "npm:aurelia-history@1.0.0-rc.1.0.0",
       "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0"
+    },
+    "npm:aurelia-http-client@1.0.0-rc.1.0.0": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0",
+      "aurelia-path": "npm:aurelia-path@1.0.0-rc.1.0.0"
     },
     "npm:aurelia-loader-default@1.0.0-rc.1.0.0": {
       "aurelia-loader": "npm:aurelia-loader@1.0.0-rc.1.0.0",

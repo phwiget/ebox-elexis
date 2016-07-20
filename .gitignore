@@ -11,7 +11,15 @@ target
 *.iws
 
 frontend/node_modules
-frontend/jspm_packages
+
+!frontend/jspm_packages/*
+
+frontend/jspm_packages/*
+!frontend/jspm_packages/github/*
+
+frontend/jspm_packages/github/*
+!frontend/jspm_packages/github/custom/
+
 frontend/bower_components
 .idea
 .DS_STORE
