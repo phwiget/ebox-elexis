@@ -40,6 +40,7 @@ class Resources @Inject()(
 
   def dist(path: String, file: Asset) = get(path, file.copy(name = "dist/" + file.name))
   def jspm(path: String, file: Asset) = get(path, file.copy(name = "jspm_packages/" + file.name))
+  def custom(path: String, file: Asset) = get(path, file.copy(name = "custom/" + file.name))
 
   /**
     * Generates and provides a javascript with all translation for the implicit Language and the specified locator. This is a helper method to assist i18n with Angular2 templates. <br>

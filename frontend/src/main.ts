@@ -1,4 +1,4 @@
-import 'bootstrap';
+import 'material';
 import {Aurelia} from 'aurelia-framework';
 
 export function configure(aurelia: Aurelia) {

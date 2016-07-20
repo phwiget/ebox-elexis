@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Aurelia</title>
+		<title>eBox-Elexis</title>
 			<!--The FontAwesome version is locked at 4.6.3 in the package.json file to keep this from breaking.-->
 		<link rel="stylesheet" href="@routes.Resources.get("jspm_packages/npm/font-awesome@4.6.3/css/font-awesome.min.css")">
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+
 		<link rel="stylesheet" href="@routes.Resources.get("styles/styles.css")">
+		@*<link rel="stylesheet" href="@routes.Resources.get("jspm_packages/github/twbs/bootstrap@3.3.6/css/bootstrap.min.css")">*@
+		@*<link rel="stylesheet" href="@routes.Resources.get("creative_tim/css/materialize.css")">*@
+
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 
-	<body aurelia-app="main">
+	<body aurelia-app="login/main" class="signup-page">
 		<div class="splash">
-			<div class="message">Aurelia Navigation Skeleton</div>
+
 			<i class="fa fa-spinner fa-spin"></i>
+
 		</div>
 
 			<!-- The bluebird version is locked at 4.6.3 in the package.json file to keep this from breaking -->
@@ -20,11 +28,14 @@
 			<!-- Windows 10 Anniversary Update on 2 August 2016. Once that update has pushed out, you may    -->
 			<!-- consider removing bluebird from your project and simply using native promises if you do     -->
 			<!-- not need to support Internet Explorer.                                                      -->
-		<script src="@routes.Resources.get("jspm_packages/npm/bluebird@3.4.1/js/browser/bluebird.min.js")"></script>
+		@*<script src="@routes.Resources.get("jspm_packages/npm/bluebird@3.4.1/js/browser/bluebird.min.js")"></script>*@
+
 		<script src="@routes.Resources.get("jspm_packages/system.js")"></script>
 		<script src="@routes.Resources.get("config.js")"></script>
 		<script>
-      System.import('aurelia-bootstrapper');
-    </script>
+      		System.import('aurelia-bootstrapper');
+    	</script>
+		<script type="text/javascript" src="@routes.RoutesCtrl.get("login")"></script>
+
 	</body>
 </html>

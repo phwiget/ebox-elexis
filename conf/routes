@@ -12,8 +12,12 @@ POST	/login						controllers.LoginCtrl.login
 GET		/messages/*locator			controllers.Resources.messages(locator:String)
 GET		/language/set				controllers.Resources.setLanguage(lang:String)
 
+#Javascript
+GET     /routes/get      			controllers.RoutesCtrl.get(page: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET 	/resources/*file			controllers.Resources.get(path="/public", file:Asset)
 GET 	/dist/*file					controllers.Resources.dist(path="/public", file:Asset)
 GET 	/jspm_packages/*file		controllers.Resources.jspm(path="/public", file:Asset)
+GET		/custom/*file				controllers.Resources.custom(path="/public", file:Asset)
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,8 +1,11 @@
 <template>
-  <require from="nav-bar.html"></require>
-  <require from="bootstrap/css/bootstrap.css"></require>
+  <require from="views/navigation/side-menu"></require>
+  <require from="views/navigation/nav-bar"></require>
+  <require from="custom:creative_tim/css/material-all.css"></require>
+
 
   <nav-bar router.bind="router"></nav-bar>
+  <side-menu router.bind="router"></side-menu>
 
   <div class="page-host">
     <router-view></router-view>

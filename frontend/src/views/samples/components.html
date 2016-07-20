@@ -1,0 +1,76 @@
+<template>
+    <require from="bootstrap-datepicker"></require>
+    <require from="../common/buttons/dot-button"></require>
+
+    <div class="container-fluid view-port">
+        <div class="row">
+            <div class="col-md-9">
+                <button class="btn btn-default spinner-button" click.delegate="check2 = !check2">Default <span show.bind="check2">&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i></span></button>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes">
+                        Unchecked
+                    </label>
+                </div>
+
+                <!--<button class="btn btn-default" spinner-button.bind="check" click.delegate="check = !check">Test Button</button>-->
+                <button class="btn btn-primary" dot-button.bind="check3" click.delegate="check3 = !check3">Test Button</button>
+
+                <input class="datepicker form-control" type="text" value="03/12/2016"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="text" value="" placeholder="Regular" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group label-floating">
+                    <label class="control-label">With Floating Label</label>
+                    <input type="email" class="form-control" value.bind="firstName">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group label-floating has-success">
+                    <label class="control-label">Success input</label>
+                    <input type="text" value="Success" class="form-control" />
+		<span class="form-control-feedback">
+			<i class="material-icons">done</i>
+		</span>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group label-floating has-error">
+                    <label class="control-label">Error input</label>
+                    <input type="email" value="Error Input" class="form-control" />
+                    <span class="material-icons form-control-feedback">clear</span>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+		<span class="input-group-addon">
+			<i class="material-icons">group</i>
+		</span>
+                    <input type="text" class="form-control" placeholder="With Material Icons">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+		<span class="input-group-addon">
+			<i class="fa fa-group"></i>
+		</span>
+                    <input type="text" class="form-control" placeholder="With Font Awesome Icons">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</template>

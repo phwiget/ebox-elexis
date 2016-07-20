@@ -4,10 +4,39 @@ System.config({
   paths: {
     "*": "dist/*",
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*"
+    "npm:*": "jspm_packages/npm/*",
+    "custom:*": "custom/*"
   },
   meta: {
     "bootstrap": {
+      "deps": [
+        "jquery"
+      ]
+    },
+    "material": {
+      "deps": [
+        "bootstrap"
+      ]
+    },
+    "bootstrap-datepicker": {
+      "deps": [
+        "material"
+      ]
+    },
+    "material-kit": {
+      "deps": [
+        "material",
+        "bootstrap",
+        "jquery"
+      ]
+    },
+    "mmenu": {
+      "deps": [
+        "jquery",
+        "jquery-mobile"
+      ]
+    },
+    "jquery-mobile": {
       "deps": [
         "jquery"
       ]
@@ -33,6 +62,11 @@ System.config({
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@2.2.4",
     "text": "github:systemjs/plugin-text@0.0.8",
+    "material": "custom:creative_tim/js/material.min.js",
+    "material-kit": "custom:creative_tim/js/material-kit.js",
+    "bootstrap-datepicker": "custom:creative_tim/js/bootstrap-datepicker.js",
+    "mmenu": "custom:mmenu/src/js/jquery.mmenu.src.js",
+    "jquery-mobile": "custom:mmenu/src/js/jquery.mobile.custom.js",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },

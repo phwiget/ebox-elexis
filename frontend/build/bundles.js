@@ -10,7 +10,7 @@ module.exports = {
         "inject": true,
         "minify": true,
         "depCache": true,
-        "rev": false
+        "rev": true
       }
     },
     "dist/aurelia": {
@@ -30,13 +30,20 @@ module.exports = {
         "bootstrap",
         "bootstrap/css/bootstrap.css!text",
         "fetch",
-        "jquery"
+        "jquery",
+        "material",
+        "material-kit",
+        "bootstrap-datepicker",
+        "mmenu",
+        "custom:creative_tim/css/material-all.css!text",
+        "custom:mmenu/dist/css/hamburger.css!text",
+        "custom:mmenu/dist/css/jquery.mmenu.custom.css!text"
       ],
       "options": {
         "inject": true,
-        "minify": true,
-        "depCache": false,
-        "rev": false
+        "minify": false,
+        "depCache": true,
+        "rev": true
       }
     }
   }

@@ -1,0 +1,42 @@
+<template bindable="router">
+
+    <require from="custom:mmenu/dist/css/jquery.mmenu.custom.css"></require>
+
+    <div id ="my-wrapper">
+        <nav id="phm-mmenu">
+
+            <ul>
+                <li><a click.delegate="navigate('welcome')"><span><i class="fa fa-home"></i> &nbsp;Home</span></a></li>
+                 <li>
+                    <span><i class="fa fa-graduation-cap"></i> &nbsp; Tutorials</span>
+                    <ul>
+                        <li>
+                            <span>Basic off-canvas menu</span>
+                            <div>
+                                <p>This tutorial guides you through the first steps of creating an app look-alike sliding menu for your website and webapp.</p>
+                                <ul>
+                                    <li><a href="/tutorials/off-canvas">Getting started</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><a>About us</a>
+                    <ul>
+                        <li><a href="#">History</a></li>
+                        <li><a href="/about/team/">The team</a></li>
+                        <li><a href="/about/address/">Our address</a></li>
+                    </ul>
+
+                </li>
+                <li><a click.delegate="navigate('components')">Components</a></li>
+            </ul>
+
+        </nav>
+
+    </div>
+
+
+
+</template>
