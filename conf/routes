@@ -3,10 +3,16 @@
 # ~~~~
 
 
-GET     /                           controllers.ApplicationCtrl.index
+GET     /app                        controllers.ApplicationCtrl.index
 
-GET		/login						controllers.LoginCtrl.index
-POST	/login						controllers.LoginCtrl.login
+GET		/							controllers.authentication.LoginCtrl.index
+GET		/login						controllers.authentication.LoginCtrl.index
+GET		/logout						controllers.authentication.LoginCtrl.logout
+
+POST	/login						controllers.authentication.LoginCtrl.login
+
+#Patient
+GET		/patient/list				controllers.patient.PatientCtrl.list(search: String)
 
 #I18N
 GET		/messages/*locator			controllers.Resources.messages(locator:String)

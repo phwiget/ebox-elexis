@@ -4,11 +4,12 @@ import play.api._
 import play.api.http.{DefaultHttpFilters, HttpFilters}
 import play.api.mvc._
 import play.filters.cors.CORSFilter
+import play.filters.csrf.CSRFFilter
 import play.filters.headers.SecurityHeadersFilter
 
 
 @Singleton
 class Filters @Inject() (
-  corsFilter: CORSFilter,
+  csrfFilter: CSRFFilter,
   securityHeadersFilter: SecurityHeadersFilter
-) extends DefaultHttpFilters(corsFilter,securityHeadersFilter)
+) extends DefaultHttpFilters(csrfFilter,securityHeadersFilter)

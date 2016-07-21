@@ -1,5 +1,6 @@
 <template bindable="router">
   <require from="github:custom/mmenu/dist/css/hamburger.css"></require>
+  <require from="styles/custom.css"></require>
 
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -11,7 +12,14 @@
           </span>
         </a>
 
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/language/set?lang=de">DE</a></li>
+          <li><a href="/language/set?lang=fr">FR</a></li>
+          <li><a href="/logout"><i class="material-icons" >power</i>&nbsp; Logout</a></li>
+        </ul>
+
       </div>
+
 
     </div>
   </nav>

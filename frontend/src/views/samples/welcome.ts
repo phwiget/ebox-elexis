@@ -1,6 +1,8 @@
 //import {computedFrom} from 'aurelia-framework';
 import {TaskQueue, autoinject} from 'aurelia-framework';
 import {Materialize} from "../materialize";
+import {PatientService} from "../../models/patient/patient-service";
+import {Patient} from "../../models/patient/patient";
 
 @autoinject
 export class Welcome extends Materialize{
@@ -8,6 +10,14 @@ export class Welcome extends Materialize{
   firstName = 'John';
   lastName = 'Doe';
   previousValue = this.fullName;
+
+  patients: Array<Patient>;
+  patientService: PatientService;
+
+  constructor(patientService: PatientService){
+      super();
+      this.patientService = patientService;
+  }
 
   //Getters can't be directly observed, so they must be dirty checked.
   //However, if you tell Aurelia the dependencies, it no longer needs to dirty check the property.
@@ -27,6 +37,14 @@ export class Welcome extends Materialize{
     if (this.fullName !== this.previousValue) {
       return confirm('Are you sure you want to leave?');
     }
+  }
+
+  loadPatients(){
+    this.patientService.list("m").then(p => {
+
+        this.patients = p;
+
+    });
   }
 
 }

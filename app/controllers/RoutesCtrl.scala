@@ -9,8 +9,13 @@ class RoutesCtrl extends Controller{
 
 
     val r: Seq[JavaScriptReverseRoute] = page match{
-      case "login" => Seq(routes.javascript.LoginCtrl.login)
-      case _ => Seq.empty
+      case "login" => Seq(
+        controllers.authentication.routes.javascript.LoginCtrl.login,
+        controllers.authentication.routes.javascript.LoginCtrl.index
+      )
+      case _ => Seq(
+        controllers.patient.routes.javascript.PatientCtrl.list
+      )
     }
 
     Ok(

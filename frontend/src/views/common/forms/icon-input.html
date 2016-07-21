@@ -1,0 +1,20 @@
+<template bindable="icon,error,label,inputValue, type, hasFocus">
+
+    <require from="../focus-me"></require>
+
+    <div class="input-group ${error===undefined ? '' : 'has-error'}">
+
+        <span class="input-group-addon">
+            <i class="material-icons">${icon}</i>
+        </span>
+
+        <div class="form-group">
+            <div class="${error===undefined ? '' : 'has-error'}">
+
+                <input type="${type===undefined ? 'text' : type}" value.bind="inputValue" class="form-control" placeholder="${label}" focus-me.bind="hasFocus" >
+            </div>
+        </div>
+
+    </div>
+
+</template>

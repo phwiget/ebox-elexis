@@ -81,3 +81,23 @@ body {
   animation: sk-scaleout 1.0s infinite ease-in-out;
 
 }
+
+.fade-in{
+  transition: opacity 0.4s ease-in-out;
+  opacity:0.0;
+}
+.fade-in.is-visible{
+  opacity: 1.0;
+}
+/*.has-error .form-control:focus{*/
+  /*border-color: #a94442 !important;*/
+/*}*/
+.form-group.is-focused>.has-error>.form-control {
+  background-image: linear-gradient(#a94442, #a94442), linear-gradient(#D2D2D2, #D2D2D2);
+}
+.has-error>.form-control {
+  color: #a94442 !important;
+}
+.text-error{
+  color: #a94442 !important;
+}

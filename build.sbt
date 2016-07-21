@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   filters,
-  specs2 % Test
+  specs2 % Test,
+  "de.leanovate.play-mockws" %% "play-mockws" % "2.5.0" % "test"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"

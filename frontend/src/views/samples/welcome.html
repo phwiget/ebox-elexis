@@ -3,7 +3,7 @@
      <div class="container-fluid view-port">
         <div class="row">
             <div class="col-md-6">
-                <button class="btn btn-default">Default</button>
+                <button class="btn btn-default" click.delegate="loadPatients()">Default</button>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="optionsCheckboxes">
@@ -12,6 +12,11 @@
                 </div>
             </div>
         </div>
+         <div class="row">
+             <div class="col-md-6">
+                 <p class="text-danger" repeat.for="patient of patients">${patient.name.fullName}</p>
+             </div>
+         </div>
     </div>
 
   <section class="au-animate">
