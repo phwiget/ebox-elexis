@@ -9,7 +9,7 @@ export class PatientService{
 
     private httpService: HttpService;
     errors: any = {};
-    patients: Array<Patient>;
+
     constructor(httpService: HttpService){
         this.httpService = httpService;
     }
