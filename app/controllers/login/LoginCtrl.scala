@@ -1,6 +1,6 @@
-package controllers.authentication
+package controllers.login
 
-import com.google.inject.Inject
+import com.google.inject.{Inject, Singleton}
 import controllers.Errors
 import controllers.actions.Actions
 import models.authentication.{AuthenticationService, Credentials}
@@ -12,7 +12,7 @@ import play.api.mvc.{Action, BodyParsers, Controller}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
+@Singleton
 class LoginCtrl @Inject()(actions: Actions, authenticationService: AuthenticationService)(val  messagesApi: MessagesApi) extends Controller with I18nSupport{
 
   import actions._
@@ -35,7 +35,7 @@ class LoginCtrl @Inject()(actions: Actions, authenticationService: Authenticatio
   def logout = IsAuthenticated{implicit request =>
 
     authenticationService.logout(
-      Redirect(controllers.authentication.routes.LoginCtrl.index())
+      Redirect(controllers.login.routes.LoginCtrl.index())
     )
 
   }

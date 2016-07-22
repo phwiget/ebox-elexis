@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import play.api.{Application, Play}
 import play.api.inject.guice.GuiceApplicationBuilder

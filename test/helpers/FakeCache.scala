@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import play.api.cache.CacheApi
 
@@ -12,7 +12,10 @@ class FakeCache extends CacheApi{
 
   override def get[T](key: String)(implicit evidence$2: ClassManifest[T]): Option[T] = cache.get(key).map(_.asInstanceOf[T])
 
-  override def getOrElse[A](key: String, expiration: Duration)(orElse: => A)(implicit evidence$1: ClassManifest[A]): A = get(key).getOrElse(orElse)
+  override def getOrElse[A](key: String, expiration: Duration)(orElse: => A)(implicit evidence$1: ClassManifest[A]): A = get(key).getOrElse{
+    set(key,orElse)
+    orElse
+  }
 
   override def remove(key: String): Unit = cache.-(key)
 }

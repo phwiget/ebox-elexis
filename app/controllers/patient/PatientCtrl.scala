@@ -1,19 +1,20 @@
 package controllers.patient
 
-import com.google.inject.Inject
+import com.google.inject.{Inject, Singleton}
 import controllers.actions.Actions
-import models.patient.dao.PatientDAO
+import models.patient.dao.{Formats, PatientDAO}
 import play.api.libs.json.Json
 import play.api.mvc.Controller
-import Formats._
 import controllers.Errors
-import play.api.i18n.{I18nSupport, Messages, MessagesApi}
+import play.api.i18n.{I18nSupport, MessagesApi}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
+@Singleton
 class PatientCtrl @Inject()(actions: Actions, patientDAO: PatientDAO)(val messagesApi: MessagesApi) extends Controller with I18nSupport{
 
   import actions._
+  import Formats._
 
   def list(search: String) = IsAuthenticated.async{implicit request =>
 
@@ -24,4 +25,12 @@ class PatientCtrl @Inject()(actions: Actions, patientDAO: PatientDAO)(val messag
 
   }
 
+  def detail(number: Long) = IsAuthenticated.async{ implicit request =>
+
+    patientDAO.detail(number).map(_.fold(
+      e => BadRequest(Errors.toJson(e)),
+      patients => Ok(Json.toJson(patients))
+    ))
+
+  }
 }

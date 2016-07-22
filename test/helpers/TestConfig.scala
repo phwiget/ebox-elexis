@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 /**
   * Override configurations needed for testing only (i.e. database connection)

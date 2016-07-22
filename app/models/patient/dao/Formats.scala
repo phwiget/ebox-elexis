@@ -1,9 +1,8 @@
-package controllers.patient
-
+package models.patient.dao
 
 import models.patient.Patient
+import play.api.libs.json.Json
 import models.person.converters.Formats._
-import play.api.libs.json.{JsValue, Json, Writes}
 
 object Formats {
 

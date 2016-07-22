@@ -23,9 +23,9 @@ export class Login extends Materialize{
 
         this.isRequesting = true;
 
-        this.httpService.post(jsRoutes.controllers.authentication.LoginCtrl.login().url,this.credentials).then(r => {
+        this.httpService.post(jsRoutes.controllers.login.LoginCtrl.login().url,this.credentials).then(r => {
 
-            window.location = r.response.url || jsRoutes.controllers.authentication.LoginCtrl.index().url;
+            window.location = r.response.url || jsRoutes.controllers.login.LoginCtrl.index().url;
 
         },e => {
 

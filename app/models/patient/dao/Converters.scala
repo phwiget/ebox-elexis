@@ -10,11 +10,18 @@ object Converters {
   implicit val patientConverter = (xml: NodeSeq) => {
 
       Patient(
-        (xml \ "id " \ "@value").text,
+        (xml \ "id" \ "@value").text,
         (xml \\ "identifier").map(i => (i \ "value" \ "@value").text),
           xml \ "name",
         (xml \ "gender" \ "@value").text
       )
+
+  }
+
+  implicit val mayBePatientConverter = (xml: NodeSeq) => {
+
+    (xml \ "Patient").headOption.map(patientConverter)
+
 
   }
 

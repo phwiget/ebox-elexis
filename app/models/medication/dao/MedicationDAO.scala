@@ -2,11 +2,21 @@ package models.medication.dao
 
 import com.google.inject.Inject
 import models.Endpoints
-import play.api.libs.ws.WSClient
+import models.medication.MedicationOrder
+import utils.WebService
+import play.api.http.HttpVerbs._
 
-class MedicationDAO @Inject()(wSClient: WSClient, endpoints: Endpoints) {
+import scala.concurrent.Future
 
+class MedicationDAO @Inject()(webService: WebService, endpoints: Endpoints) {
 
+  import Converters._
+
+  def list(patientId: String): Future[scala.Either[String, scala.Seq[MedicationOrder]]] = {
+
+    webService.request[Seq[MedicationOrder]](endpoints.Medication.list(patientId),GET)
+
+  }
 
 
 

@@ -1,11 +1,11 @@
 package controllers
 
 import controllers.Assets.Asset
+import helpers.SingleInstance
 import org.specs2.mock.Mockito
 import play.api.i18n.{Lang, Messages, MessagesApi}
 import play.api.{Configuration, Environment, Mode}
 import play.api.test.{FakeRequest, PlaySpecification}
-import utils.SingleInstance
 
 class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{sequential
 

@@ -1,6 +1,7 @@
 package models.authentication
 
 
+import helpers.{FakeCache, SingleInstance}
 import models.Endpoints
 import models.user.User
 import org.specs2.mock.Mockito
@@ -8,7 +9,6 @@ import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc.{Action, Call, Results}
 import play.api.test.PlaySpecification
-import utils.{FakeCache, SingleInstance}
 import mockws.MockWS
 import play.api.{Environment, Mode}
 

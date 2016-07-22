@@ -3,6 +3,7 @@ import {TaskQueue, autoinject} from 'aurelia-framework';
 import {Materialize} from "../materialize";
 import {PatientService} from "../../models/patient/patient-service";
 import {Patient} from "../../models/patient/patient";
+import {MedicationService} from "../../models/medication/medication-service";
 
 @autoinject
 export class Welcome extends Materialize{
@@ -11,12 +12,15 @@ export class Welcome extends Materialize{
   lastName = 'Doe';
   previousValue = this.fullName;
 
+  medications: Array<any>;
   patients: Array<Patient>;
-  patientService: PatientService;
-
-  constructor(patientService: PatientService){
+  private patientService: PatientService;
+  private medicationService: MedicationService;
+  
+  constructor(patientService: PatientService, medicationService: MedicationService){
       super();
       this.patientService = patientService;
+      this.medicationService = medicationService;
   }
 
   //Getters can't be directly observed, so they must be dirty checked.
@@ -43,6 +47,14 @@ export class Welcome extends Materialize{
     this.patientService.list("m").then(p => {
 
         this.patients = p;
+
+    });
+  }
+    
+  loadMedications(patientId){
+    this.medicationService.list(patientId).then(m => {
+
+        this.medications = m;
 
     });
   }

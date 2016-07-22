@@ -5,14 +5,18 @@
 
 GET     /app                        controllers.ApplicationCtrl.index
 
-GET		/							controllers.authentication.LoginCtrl.index
-GET		/login						controllers.authentication.LoginCtrl.index
-GET		/logout						controllers.authentication.LoginCtrl.logout
+GET		/							controllers.login.LoginCtrl.index
+GET		/login						controllers.login.LoginCtrl.index
+GET		/logout						controllers.login.LoginCtrl.logout
 
-POST	/login						controllers.authentication.LoginCtrl.login
+POST	/login						controllers.login.LoginCtrl.login
 
 #Patient
 GET		/patient/list				controllers.patient.PatientCtrl.list(search: String)
+GET		/patient/detail				controllers.patient.PatientCtrl.detail(number: Long)
+
+#Medication
+GET		/medication-order/list		controllers.medication.MedicationCtrl.list(patientId: String)
 
 #I18N
 GET		/messages/*locator			controllers.Resources.messages(locator:String)

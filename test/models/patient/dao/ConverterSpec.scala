@@ -9,9 +9,19 @@ class ConverterSpec extends PlaySpecification with Samples{
 
     "convert to a patient" in {
 
-      patientConverter(patient1).fullName must equalTo("Maria Meier")
+      val p = patientConverter(patient1)
+      p.fullName must equalTo("Maria Meier")
+      p.id must equalTo("if69a4f3141137d308")
+      p.gender must equalTo("female")
 
     }
+
+    "convert to an optional patient" in {
+
+      mayBePatientConverter(patientsEmpty).isEmpty must equalTo(true)
+
+    }
+
 
     "convert to patients" in {
 

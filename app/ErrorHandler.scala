@@ -11,6 +11,7 @@ import play.api.libs.json.Json
 class ErrorHandler extends HttpErrorHandler {
 
   def onClientError(request: RequestHeader, statusCode: Int, message: String) = {
+
     Future.successful(
 
       (request.contentType, statusCode) match{

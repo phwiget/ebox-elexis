@@ -10,11 +10,19 @@
                         Unchecked
                     </label>
                 </div>
+
             </div>
         </div>
          <div class="row">
              <div class="col-md-6">
-                 <p class="text-danger" repeat.for="patient of patients">${patient.name.fullName}</p>
+                 <p class="text-danger" repeat.for="patient of patients">
+                     <a href="javascript:void(0);" click.delegate="loadMedications(patient.id)">${patient.name.fullName}</a>
+                 </p>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-6">
+                 <p class="text-danger" repeat.for="m of medications">${m.medicationCodeableConcept.text}</p>
              </div>
          </div>
     </div>

@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import akka.stream.Materializer
 import org.specs2.mutable.Before
