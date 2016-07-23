@@ -30,3 +30,4 @@ frontend/test/e2e/dist
 frontend/typings
 frontend/export
 node_modules
+public/
