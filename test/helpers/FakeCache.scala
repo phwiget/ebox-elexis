@@ -8,7 +8,7 @@ class FakeCache extends CacheApi{
 
   var cache:Map[String,Any] = Map.empty
 
-  override def set(key: String, value: Any, expiration: Duration): Unit = {cache.+((key, value))}
+  override def set(key: String, value: Any, expiration: Duration): Unit = cache = cache.+((key, value))
 
   override def get[T](key: String)(implicit evidence$2: ClassManifest[T]): Option[T] = cache.get(key).map(_.asInstanceOf[T])
 
@@ -17,5 +17,5 @@ class FakeCache extends CacheApi{
     orElse
   }
 
-  override def remove(key: String): Unit = cache.-(key)
+  override def remove(key: String): Unit = cache = cache.-(key)
 }

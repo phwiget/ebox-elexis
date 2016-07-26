@@ -1,12 +1,31 @@
 <template bindable="router">
 
     <require from="github:custom/mmenu/dist/css/jquery.mmenu.custom.css"></require>
+    <require from="styles/typeahead.css"></require>
+    <require from="../common/typeahead/typeahead"></require>
 
     <div id ="my-wrapper">
         <nav id="phm-mmenu">
 
             <ul>
-                <li><a click.delegate="navigate('welcome')"><span><i class="fa fa-home"></i> &nbsp;Home</span></a></li>
+                <li class="Divider no-hover" show.bind="patientService.selectedPatient===undefiend">Kein Patient gewählt</li>
+                <li class="Divider no-hover" show.bind="patientService.selectedPatient">${patientService.selectedPatient.name.fullName}</li>
+
+                <div class="typeahead no-hover">
+                    <span>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="@Messages('navbar.search.placholder')" typeahead="
+                                source.bind: request;
+                                scope.bind:scope;
+                                on-selected.bind:onSelected;
+                                min-length.bind:2;
+                                display.bind:display;
+                                on-empty.bind:'@Messages('navbar.search.noMatch')'
+                                " />
+                        </div>
+                    </span>
+                </div>
+                <li><a click.delegate="navigate('home')"><span><i class="fa fa-home"></i> &nbsp;Home</span></a></li>
                  <li>
                     <span><i class="fa fa-graduation-cap"></i> &nbsp; Tutorials</span>
                     <ul>
@@ -24,7 +43,7 @@
 
                 <li><a>About us</a>
                     <ul>
-                        <li><a href="#">History</a></li>
+                        <li><a click.delegate="navigate('welcome')">Welcome</a></li>
                         <li><a href="/about/team/">The team</a></li>
                         <li><a href="/about/address/">Our address</a></li>
                     </ul>

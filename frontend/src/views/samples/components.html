@@ -1,8 +1,14 @@
 <template>
     <require from="bootstrap-datepicker"></require>
     <require from="../common/buttons/dot-button"></require>
+    <require from="../common/typeahead/typeahead"></require>
 
     <div class="container-fluid view-port">
+        <div class="row">
+            <div class="col-md-9">
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-9">
                 <button class="btn btn-default spinner-button" click.delegate="check2 = !check2">Default <span show.bind="check2">&nbsp;&nbsp;<i class="fa fa-spinner fa-spin"></i></span></button>

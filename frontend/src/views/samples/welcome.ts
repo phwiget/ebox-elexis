@@ -16,11 +16,13 @@ export class Welcome extends Materialize{
   patients: Array<Patient>;
   private patientService: PatientService;
   private medicationService: MedicationService;
+  scope: any;
   
   constructor(patientService: PatientService, medicationService: MedicationService){
       super();
       this.patientService = patientService;
       this.medicationService = medicationService;
+      this.scope = this;
   }
 
   //Getters can't be directly observed, so they must be dirty checked.
@@ -50,7 +52,29 @@ export class Welcome extends Materialize{
 
     });
   }
+  
+  request(query: string, scope: any ){
+
+    return scope.patientService.list(query).then(patients => {
+
+        return patients;
+
+    });
     
+  }
+    
+    display(p: Patient){
+        
+        return p.name.fullName;
+        
+    }
+
+    onSelected(selected: any, scope: any ){
+
+        console.log(selected);
+
+    }
+
   loadMedications(patientId){
     this.medicationService.list(patientId).then(m => {
 

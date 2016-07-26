@@ -1,13 +1,14 @@
 package utils
 
 import mockws.MockWS
+import models.request.UserRequest
+import models.user.User
 import org.specs2.mock.Mockito
 import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 import play.api.test.PlaySpecification
 import play.api.http.HttpVerbs._
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Results}
-
+import play.api.mvc.{Action, AnyContent, Results}
 
 import scala.xml.NodeSeq
 
@@ -27,11 +28,14 @@ class WebServiceSpec extends PlaySpecification with Mockito{
     "wrap all request in a standardized manner" in {
 
       val converter: NodeSeq => String = (n: NodeSeq) => n.text
+      val request = mock[UserRequest[AnyContent]]
+      request.user returns mock[User]
+      request.user.token returns "SECRET_TOKEN"
 
-      val r1 = await(service.request("/test",GET)(converter))
-      val r2 = await(service.request("/fail",GET)(converter))
-      val r3 = await(service.request("/test",POST, Some(Json.obj("bac"-> "test")))(converter))
-      val r4 = await(service.request("/abc", GET)(converter))
+      val r1 = await(service.request("/test",GET)(converter,request))
+      val r2 = await(service.request("/fail",GET)(converter,request))
+      val r3 = await(service.request("/test",POST, Some(Json.obj("bac"-> "test")))(converter,request))
+      val r4 = await(service.request("/abc", GET)(converter,request))
 
       r1.isRight must equalTo(true)
       r1.right.get must equalTo("test")

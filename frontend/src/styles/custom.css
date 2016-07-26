@@ -21,3 +21,28 @@
 .navbar-header {
     float: none !important;
 }
+
+body {
+    background-color: #E5E5E5 !important;
+}
+.nav-pills > li.active > a{
+    cursor: pointer;
+}
+.nav-pills> li.active.nav-pills-success > a, .nav-pills> li.active.nav-pills-success > a:focus, .nav-pills > li.active.nav-pills-success > a:hover {
+    background-color: #4caf50;
+    box-shadow: 0 16px 26px -10px rgba(76, 175, 80, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
+}
+
+.nav-pills> li.active.nav-pills-danger > a, .nav-pills> li.active.nav-pills-danger > a:focus, .nav-pills > li.active.nav-pills-danger > a:hover {
+    background-color: #f44336;
+    box-shadow: 0 16px 26px -10px rgba(244, 67, 54, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2);
+}
+
+.nav-pills> li.active.nav-pills-warning > a, .nav-pills> li.active.nav-pills-warning > a:focus, .nav-pills > li.active.nav-pills-warning > a:hover {
+    background-color: #fbc02d;
+    box-shadow: 0 16px 26px -10px rgba(251, 192, 45, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(251, 192, 45, 0.2);
+}
+
+.nav-pills > li {
+    padding: 5px;
+}

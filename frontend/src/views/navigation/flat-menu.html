@@ -1,0 +1,41 @@
+<template>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2 class="title">Ebox-Elexis</h2>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+                <ul class="nav nav-pills " role="tablist">
+                    <li class="active nav-pills-success">
+                        <a  click.delegate="navigate('home')" role="tab" data-toggle="tab">
+                            <i class="material-icons">dashboard</i>
+                            @Messages('navbar.medication')
+                        </a>
+                    </li>
+                    <li class="active nav-pills-danger">
+                        <a click.delegate="navigate('components')" role="tab" data-toggle="tab">
+                            <i class="material-icons">schedule</i>
+                            @Messages('navbar.agenda')
+                        </a>
+                    </li>
+                    <li class="active nav-pills-warning ">
+                        <a click.delegate="navigate('welcome')"  role="tab" data-toggle="tab">
+                            <i class="material-icons">settings</i>
+                            @Messages('navbar.settings')
+                        </a>
+                    </li>
+                </ul>
+
+        </div>
+
+    </div>
+    <div class="row">
+
+    <br>
+    </div>
+</template>

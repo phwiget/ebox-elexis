@@ -1,6 +1,5 @@
 <template>
-
-     <div class="container-fluid view-port">
+    <require from="../common/typeahead/typeahead"></require>
         <div class="row">
             <div class="col-md-6">
                 <button class="btn btn-default" click.delegate="loadPatients()">Default</button>
@@ -25,7 +24,19 @@
                  <p class="text-danger" repeat.for="m of medications">${m.medicationCodeableConcept.text}</p>
              </div>
          </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input typeahead="
+                source.bind: request;
+                scope.bind:scope;
+                on-selected.bind:onSelected;
+                min-length.bind:2;
+                display.bind:display;
+                on-empty.bind:'no matches found'
+                " />
+                <!--<input typeahead />-->
+            </div>
+        </div>
 
   <section class="au-animate">
     <h2>${heading}</h2>

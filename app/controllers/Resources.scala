@@ -1,29 +1,51 @@
 package controllers
 
+import java.nio.charset. StandardCharsets
+import java.nio.file.{Files, Paths}
+import java.security.MessageDigest
+import java.util.zip.GZIPOutputStream
+
+import akka.util.ByteString
 import com.google.inject.{Inject, Singleton}
 import controllers.Assets.Asset
 import play.api.cache.CacheApi
-import play.api.i18n.{I18nSupport, Lang, MessagesApi}
+import play.api.http.HttpEntity
+import play.api.i18n.{I18nSupport, Lang, Messages, MessagesApi}
 import play.api.{Configuration, Environment, Mode}
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{ResponseHeader, _}
 
 @Singleton
 class Resources @Inject()(
   env: Environment,
-  configuration: Configuration)(val messagesApi: MessagesApi) extends Controller with I18nSupport {
+  configuration: Configuration,
+  cacheApi: CacheApi)(val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
   lazy val frontendPath = configuration.getString("play.frontend.path").getOrElse("frontend/")
+
+  lazy val messageDigest = MessageDigest.getInstance("MD5")
+  lazy val md5 = (bytes: Array[Byte]) => messageDigest.digest(bytes).map("%02X".format(_)).mkString.toLowerCase
 
   /**
     * Fetches resources in an optimized manner depending on the current environment:<br>
     * Dev: Resources are read from disk, hence the app don't need to reload<br>
-    * Prod: Resources are read from the asset package as in a vanilla setup. Note that reverse routing works properly with regards to minification and fingerprinting due the specified type "Asset".
+    * Prod: Resources are read from the asset package as in a vanilla setup. Note that reverse routing works properly with regards to minification, fingerprinting and Caching due to the specified type "Asset".
     *
     * @param path
     * @param file
     * @return
     */
-  def get(path:String, file:Asset) = {
+  def get(path:String, file:Asset): Action[AnyContent] = {
+
+    if (file.name.endsWith(".html")) serveTemplate(file)
+    else serveAsset(file)
+
+  }
+
+  def dist(path: String, file: Asset) = get(path, file.copy(name = "dist/" + file.name))
+  def jspm(path: String, file: Asset) = get(path, file.copy(name = "jspm_packages/" + file.name))
+  def custom(path: String, file: Asset) = get(path, file.copy(name = "custom/" + file.name))
+
+  private def serveAsset(file:Asset): Action[AnyContent] = {
 
     if (env.mode == Mode.Dev)
       Action { implicit request =>
@@ -36,11 +58,94 @@ class Resources @Inject()(
       }
 
     else controllers.Assets.versioned("/public", file)
+
   }
 
-  def dist(path: String, file: Asset) = get(path, file.copy(name = "dist/" + file.name))
-  def jspm(path: String, file: Asset) = get(path, file.copy(name = "jspm_packages/" + file.name))
-  def custom(path: String, file: Asset) = get(path, file.copy(name = "custom/" + file.name))
+  val reverseRouter = (resource: String) => routes.Resources.get(Asset(resource)).url
+
+  private def serveTemplate(file: Asset): Action[AnyContent] = {
+
+    Action{implicit request =>
+
+      val lang = messagesApi.preferred(request).lang.language match{
+        case "de" => "de"
+        case "fr" => "fr"
+        case _ => "de"
+      }
+
+      getTemplate(lang, file) match{case(etag, gzip) =>
+
+        if (etag == request.headers.get("If-None-Match").getOrElse("")) NotModified
+        else {
+
+          val headers: Map[String,String]= Map(CACHE_CONTROL->"public, max-age=0",CONTENT_TYPE -> "text/html; charset=utf-8",CONTENT_ENCODING -> "gzip", ETAG->etag )
+          val entity: HttpEntity = HttpEntity.Strict(ByteString.fromArray(gzip),None)
+
+          Result(
+            header = ResponseHeader(OK, headers),
+            body = entity
+          )
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  private def getTemplate(lang: String, file: Asset): (String,Array[Byte]) = {
+
+    lazy val template = gzip(createTemplate(file.name,lang,reverseRouter))
+    lazy val etag = md5(template)
+
+    if (env.mode == Mode.Dev) (etag, template)
+    else cacheApi.getOrElse[(String,Array[Byte])]("template_" + lang + file.name ){(etag,template)}
+
+  }
+
+  private def gzip(template: String): Array[Byte] = {
+
+    val out = new java.io.ByteArrayOutputStream(template.length)
+
+    val gzip: GZIPOutputStream = new GZIPOutputStream(out)
+    gzip.write(template.getBytes(StandardCharsets.UTF_8))
+    gzip.close()
+
+    val bytes = out.toByteArray
+
+    out.close()
+
+    bytes
+  }
+
+  def createTemplate(template:String,lang:String,reverseRouter:String => String): String = {
+
+    implicit val language = Messages(Lang(lang), messagesApi)
+    val templateString = new String(Files.readAllBytes(Paths.get(frontendPath + template)),StandardCharsets.UTF_8)
+
+
+    lazy val pattern = "(?<=@Messages\\(\')(.*?)(?=\'\\))".r
+    lazy val part1 = """@Messages('"""
+    lazy val part2 = """')"""
+
+    lazy val patternResources = "(?<=@Resources\\(\')(.*?)(?=\'\\))".r
+    lazy val part1Resources = """@Resources('"""
+
+    val withMessages =
+      pattern.findAllIn(templateString).map(m => (part1 + m + part2,
+        Messages(m)(language))
+      ).foldLeft(templateString)((template, message) => template.replace(message._1, message._2))
+
+
+    patternResources.findAllIn(
+      withMessages
+    ).map(r => (part1Resources + r + part2, reverseRouter(r))).foldLeft(withMessages)((template, resource) => template.replace(resource._1, resource._2))
+
+
+  }
+
 
   /**
     * Generates and provides a javascript with all translation for the implicit Language and the specified locator. This is a helper method to assist i18n with Angular2 templates. <br>

@@ -5,4 +5,5 @@ trait User{
   val name: String
   val roles: Seq[String]
   val permissions: Seq[String]
+  val token: String
 }

@@ -21,7 +21,7 @@
 
                         <li>
                             <a href="/wiki" target="_blank">
-                                <i class="material-icons">bookmark_border</i> Wiki
+                                <i class="material-icons">bookmark_border</i> @Messages('login.wiki')
                             </a>
                         </li>
                         <li>
@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/language/set?lang=de" >
+                            <a href="/language/set?lang=fr" >
                                 FR
                             </a>
                         </li>
@@ -52,7 +52,7 @@
                             <div class="card card-signup">
                                 <form class="form" action="" submit.delegate="login()">
                                     <div class="header header-primary text-center">
-                                        <h4>Login</h4>
+                                        <h4>@Messages('login.header')</h4>
                                         <div class="social-line">
                                             <a href="#pablo" class="btn btn-simple btn-just-icon">
                                                 <i class="fa fa-facebook-square"></i>
@@ -68,14 +68,14 @@
                                     <p class="text-divider">Elexis</p>
                                     <div class="content">
 
-                                        <icon-input input-value.two-way="credentials.username" label="Username" icon="face" error.bind="errors.username" has-focus="true"></icon-input>
-                                        <icon-input input-value.two-way="credentials.password" label="Password..." icon="lock_outline" error.bind="errors.password" type="password"></icon-input>
+                                        <icon-input input-value.two-way="credentials.username" label="@Messages('login.username')" icon="face" error.bind="errors.username" has-focus="true"></icon-input>
+                                        <icon-input input-value.two-way="credentials.password" label="@Messages('login.password')" icon="lock_outline" error.bind="errors.password" type="password"></icon-input>
 
                                     </div>
                                     <div class="footer text-center">
 
                                         <button type="submit" class="btn btn-primary btn-round" dot-button.bind="isRequesting" disabled.bind="disabled">
-                                            <i class="material-icons">fingerprint</i> Login
+                                            <i class="material-icons">fingerprint</i> @Messages('login.login')
                                         </button>
 
                                         <p class="text-error fade-in ${errors.error!==undefined ? 'is-visible' : ''}" >${errors.error}</p>
@@ -99,7 +99,7 @@
 
                                 <li>
                                     <a href="/">
-                                        Wiki
+                                        @Messages('login.wiki')
                                     </a>
                                 </li>
 

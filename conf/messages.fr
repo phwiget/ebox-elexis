@@ -1,0 +1,10 @@
+#ERRORS
+error.user.unauthorized = Le login était...
+error.server.unavailable = Le serveur n'est pas connecté.
+
+#Login
+login.wiki = Wiki
+login.header = Login
+login.username = Mot d''utilisateur
+login.password = Mot de passe
+login.login = Login

@@ -35,7 +35,7 @@ class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, 
 
     if (env.mode == Mode.Dev) {
 
-      val u = Json.obj("id" -> "abc","name" -> "tester", "roles" -> Json.arr("a","b","c"), "permissions" -> Json.arr("z"))
+      val u = Json.obj("id" -> "abc","name" -> "tester", "roles" -> Json.arr("a","b","c"), "permissions" -> Json.arr("z"), "token" -> "SECRET_TOKEN")
       Future.successful(redirect(cache(toUser(u)), onSuccess))
 
     } else {

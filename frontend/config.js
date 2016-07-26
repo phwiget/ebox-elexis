@@ -6,6 +6,7 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
+
   meta: {
     "bootstrap": {
       "deps": [
@@ -41,6 +42,7 @@ System.config({
       ]
     }
   },
+
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0-rc.1.0.0",
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-rc.1.0.0",
@@ -68,6 +70,7 @@ System.config({
     "material-kit": "github:custom/creative_tim/js/material-kit.js",
     "mmenu": "github:custom/mmenu/src/js/jquery.mmenu.src.js",
     "text": "github:systemjs/plugin-text@0.0.8",
+    "typeahead.js": "npm:typeahead.js@0.11.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -236,6 +239,11 @@ System.config({
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
+    },
+    "npm:typeahead.js@0.11.1": {
+      "jquery": "npm:jquery@2.2.4",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",

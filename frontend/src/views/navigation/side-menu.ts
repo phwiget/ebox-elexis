@@ -1,6 +1,8 @@
 import {Constants} from "../../models/constants";
 import {autoinject} from "aurelia-dependency-injection";
 import {Router} from "aurelia-router";
+import {PatientService} from "../../models/patient/patient-service";
+import {Patient} from "../../models/patient/patient";
 
 declare var $;
 declare var mmenu;
@@ -11,10 +13,15 @@ export class SideMenu {
     private constants: Constants;
     private router: Router;
     private api: any = undefined;
+    menu: any;
+    patientService: PatientService;
+    scope: any;
 
-    constructor(constants: Constants, router: Router){
+    constructor(constants: Constants, router: Router, patientService: PatientService){
         this.constants = constants;
         this.router = router;
+        this.patientService = patientService;
+        this.scope = this;
     }
 
     private addEventListeners(viewPortWidth: number){
@@ -67,10 +74,14 @@ export class SideMenu {
 
         this.addEventListeners(viewPortWidth);
 
+        this.menu = $(this.constants.menuTitle);
+
         if ( viewPortWidth >= 768){
             this.api.open();
             $(this.constants.hambugerMenuClass).addClass("is-active");
         }
+
+        // this.menu.html("Patient XXX");
 
     }
 
@@ -86,6 +97,29 @@ export class SideMenu {
             $(this.constants.hambugerMenuClass).removeClass("is-active");
 
         }
+
+    }
+
+    request(query: string, scope: any ){
+
+        return scope.patientService.list(query).then(patients => {
+
+            return patients;
+
+        });
+
+    }
+
+    display(p: Patient){
+
+        return p.name.fullName + " (" + p.gender.substring(0,1) + ")" ;
+
+    }
+
+    onSelected(selected: Patient, scope: any ){
+
+        console.log(selected);
+        scope.patientService.selectedPatient = selected;
 
     }
 

@@ -1,5 +1,4 @@
 import {autoinject} from 'aurelia-framework';
-import {customAttribute} from "aurelia-templating";
 
 @autoinject
 export class FocusMeCustomAttribute {

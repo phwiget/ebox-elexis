@@ -9,12 +9,13 @@ export class PatientService{
 
     private httpService: HttpService;
     errors: any = {};
+    selectedPatient: Patient;
 
     constructor(httpService: HttpService){
         this.httpService = httpService;
     }
 
-    list(search: string): Promise<any>{
+    list(search: string): Promise<Array<Patient>>{
 
         return this.httpService.get(jsRoutes.controllers.patient.PatientCtrl.list(search).url).then(r => {
 

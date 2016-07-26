@@ -1,3 +1,5 @@
+import java.io.{PrintWriter, StringWriter}
+
 import play.api.http.{HttpErrorHandler, MimeTypes}
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -5,6 +7,7 @@ import play.api.mvc.Results._
 import scala.concurrent._
 import javax.inject.Singleton
 
+import play.api.Logger
 import play.api.libs.json.Json
 
 @Singleton
@@ -27,6 +30,12 @@ class ErrorHandler extends HttpErrorHandler {
   }
 
   def onServerError(request: RequestHeader, exception: Throwable) = {
+
+    val sw = new StringWriter
+    exception.printStackTrace(new PrintWriter(sw))
+
+    Logger.debug(exception.getMessage)
+    Logger.debug(sw.toString)
 
     Future.successful(
       request.contentType match{

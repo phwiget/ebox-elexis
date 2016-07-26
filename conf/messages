@@ -1,3 +1,21 @@
 #ERRORS
 error.user.unauthorized = Das Login war nicht erfolgreich...
 error.server.unavailable = Der Elexis-Server konnte nicht erreicht werden...
+
+#Login
+login.wiki = Wiki
+login.header = Login
+login.username = Benutzername
+login.password = Passwort
+login.login = Login
+
+#Navigation bar
+navbar.medication = Medikation
+navbar.patient = Patienten
+navbar.agenda = Agenda
+navbar.settings = Einstellungen
+navbar.settings.authentication = Authentifizierung
+navbar.settings.style = Layout
+navbar.search.noMatch = Kein Patient gefunden
+navbar.search.placholder = Patientensuche
+
