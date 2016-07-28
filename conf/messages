@@ -10,12 +10,36 @@ login.password = Passwort
 login.login = Login
 
 #Navigation bar
+navbar.home = Übersicht
 navbar.medication = Medikation
 navbar.patient = Patienten
 navbar.agenda = Agenda
 navbar.settings = Einstellungen
 navbar.settings.authentication = Authentifizierung
+navbar.settings.authentication.secondFactor = Zweiter Faktor
+navbar.settings.authentication.credentials = Benutzerdaten
 navbar.settings.style = Layout
 navbar.search.noMatch = Kein Patient gefunden
-navbar.search.placholder = Patientensuche
+navbar.search.placeholder = Patientensuche
+navbar.noPatient = Kein Patient gewählt
+
+#Medication
+medication.title = Medikation
+medication.history = Historie
+medication.table.type = F/R
+medication.table.article = Artikel
+medication.table.dosage = Dosis
+medication.table.instruction = Einnahmevorschrift
+medication.table.start = Start
+medication.table.end = Ende
+medication.table.reason = Grund des Stopps
+medication.table.actions = Aktionen
+
+#Agenda
+agenda.title = Agenda
+
+#Settings
+settings.authentication.title = Zwei-Faktor Authentisierung
+
+
 

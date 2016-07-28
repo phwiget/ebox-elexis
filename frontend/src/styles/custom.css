@@ -46,3 +46,22 @@ body {
 .nav-pills > li {
     padding: 5px;
 }
+.label-patient{
+    text-transform: none;
+}
+.table .td-actions .btn {
+    margin: 0px;
+    padding: 5px;
+}
+.table-responsive{
+    min-height: 180px !important;
+}
+.clickable{
+    cursor: pointer;
+}
+.search-form{
+    margin-top: -40px;
+}
+.btn-history{
+    margin-top: -10px !important;
+}

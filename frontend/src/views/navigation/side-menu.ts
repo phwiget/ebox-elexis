@@ -8,7 +8,7 @@ declare var $;
 declare var mmenu;
 
 @autoinject
-export class SideMenu {
+export class SideMenu{
 
     private constants: Constants;
     private router: Router;
@@ -31,6 +31,13 @@ export class SideMenu {
         var hamburger = this.constants.hambugerMenuClass;
         var api = $(navbarMenu).data( "mmenu" );
 
+        var validateSwipe = function(target){
+
+            var el = $(target);
+            return el.hasClass('table-responsive') || el.hasClass('loader') || target.tagName === "TR" || target.tagName === "TD" || target.tagName === "TBODY";
+
+        };
+
         this.api = api;
 
         api.bind( "close", function() {
@@ -42,20 +49,30 @@ export class SideMenu {
         api.bind( "open", function() {
 
             $(hamburger).addClass("is-active");
+            // $(".typeahead-jquery").focus();
 
         });
 
         if (viewPortWidth < 768) {
 
-            $(document.body).on("swiperight",function(){
+            $(document.body).on("swiperight",function(event){
 
-                if (!$(hamburger).hasClass("is-active")){api.open();}
+
+                if (!validateSwipe(event.target)){
+                    if (!$(hamburger).hasClass("is-active")){api.open();}
+                }
+
 
             });
 
-            $(document.body).on("swipeleft",function(){
+            $(document.body).on("swipeleft",function(event){
 
-                if ($(hamburger).hasClass("is-active")){api.close();}
+
+                if (!validateSwipe(event.target)) {
+                    if ($(hamburger).hasClass("is-active")) {
+                        api.close();
+                    }
+                }
 
             });
         }
@@ -80,8 +97,6 @@ export class SideMenu {
             this.api.open();
             $(this.constants.hambugerMenuClass).addClass("is-active");
         }
-
-        // this.menu.html("Patient XXX");
 
     }
 
@@ -118,8 +133,16 @@ export class SideMenu {
 
     onSelected(selected: Patient, scope: any ){
 
-        console.log(selected);
+        let viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
         scope.patientService.selectedPatient = selected;
+
+        if ( viewPortWidth < 768){
+
+            scope.api.close();
+            $(scope.constants.hambugerMenuClass).removeClass("is-active");
+
+        }
 
     }
 

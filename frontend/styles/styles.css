@@ -85,10 +85,13 @@ body {
 .fade-in{
   transition: opacity 0.4s ease-in-out;
   opacity:0.0;
+
 }
 .fade-in.is-visible{
+
   opacity: 1.0;
 }
+
 /*.has-error .form-control:focus{*/
   /*border-color: #a94442 !important;*/
 /*}*/

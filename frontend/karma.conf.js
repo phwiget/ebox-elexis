@@ -34,6 +34,7 @@ module.exports = function(config) {
       ]
     },
     files: [
+      'test/unit/jsRoutes.ts',
       'test/unit/setup.ts',
       'test/unit/*.ts',
       'test/unit/**/*.ts'

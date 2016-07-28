@@ -1,0 +1,104 @@
+<template>
+    <require from="../common/forms/bread-crumb"></require>
+    <require from="../common/converters/date-format"></require>
+    <require from="../common/converters/filter"></require>
+    <require from="../common/converters/show"></require>
+
+    <require from="../common/converters/sort"></require>
+    <require from="../common/converters/paginate"></require>
+    <require from="../common/forms/chevron.html"></require>
+    <require from="../../styles/loader.css"></require>
+    <require from="../common/pagination/pagination"></require>
+
+    <bread-crumb title="@Messages('medication.title')"></bread-crumb>
+
+
+
+    <div class="row">
+        <div class="col-md-2">
+
+            <div class="input-group search-form fade-in ${history ? 'is-visible' : ''}">
+                <span class="input-group-addon">
+                    <i class="material-icons">search</i>
+                </span>
+                <input type="text" class="form-control" placeholder="Suche" value.bind="search">
+            </div>
+
+        </div>
+
+        <div class=" col-md-offset-4 col-md-6">
+
+            <button class="btn btn-info pull-right btn-sm btn-history" click.delegate="history = !history">
+                @Messages('medication.history')
+                &nbsp;<i class="material-icons" show.bind="history">done</i>
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="loader fade-in ${loading ? 'is-visible' : ''}">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+
+                        <th  class="text-center">@Messages('medication.table.type')</th>
+                        <th class="clickable" click.delegate="sort('medicationCodeableConcept.text')">@Messages('medication.table.article') <chevron key.bind="sortKey" model="medicationCodeableConcept.text" asc.bind="asc" ></chevron></th>
+                        <th>@Messages('medication.table.dosage') <chevron key.bind="sortKey" model="abc" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('note')">@Messages('medication.table.instruction') <chevron key.bind="sortKey" model="note" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('dateWritten')">@Messages('medication.table.start') <chevron key.bind="sortKey" model="dateWritten" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('dateEnded')">@Messages('medication.table.end') <chevron key.bind="sortKey" model="dateEnded" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('m.dosageInstructions.text')">@Messages('medication.table.reason') <chevron key.bind="sortKey" model="m.dosageInstructions.text" asc.bind="asc" ></chevron></th>
+                        <th class="text-right">@Messages('medication.table.actions')</th>
+
+                    </tr>
+                    </thead>
+                    <tbody >
+
+                    <tr  repeat.for="m of medications | filter:search | sort:sortKey:asc | paginate:currentPage:10" class="fade-in ${loading ? '' : 'is-visible'}">
+                            <td class="text-center">F</td>
+                            <td >${m.medicationCodeableConcept.text}</td>
+                            <td>${m.dosageInstructions[0].text}</td>
+                            <td>${m.note}</td>
+                            <td class="text-right">${m.dateWritten | dateFormat}</td>
+                            <td class="text-right">${m.dateEnded | dateFormat}</td>
+                            <td>${m.dosageInstructions.text}</td>
+
+                            <td class="td-actions text-right">
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-info">
+                                    <i class="material-icons">person</i>
+                                </button>
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-success">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-danger">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <div class="fade-in ${'medications | show:search:10' ? 'is-visible' : ''}">
+                    <pagination show.bind="medications | show:search:10" current-page.two-way="currentPage" items-per-page="10" boundaries="true" total-items.bind="medications | filter:search" ></pagination>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</template>

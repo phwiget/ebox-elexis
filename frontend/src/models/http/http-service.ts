@@ -41,6 +41,16 @@ export class HttpService{
 
     }
 
+    put(url: string, data: any): Promise<HttpResponseMessage> {
+
+        return this.client.createRequest(url)
+            .asPut()
+            .withContent(data)
+            .withHeader(this.csrfHeader, this.csrfToken())
+            .send().then(this.onSuccess,this.onFailure)
+
+    }
+
     //JSON-wrapper for successful promise
     private onSuccess(r:HttpResponseMessage){
         r.response = JSON.parse(r.response);

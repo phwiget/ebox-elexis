@@ -25,6 +25,14 @@ export class TypeaheadCustomAttribute{
     constructor(element: Element){
 
         this.element = element;
+        var self = this;
+        
+        this.element.addEventListener('focus', function(){
+            
+            var el = <HTMLInputElement>self.element;
+            el.select();
+
+        });
 
     }
 
@@ -68,12 +76,13 @@ export class TypeaheadCustomAttribute{
                 
                 self.lastSelection = self.display(selected);
                 self.onSelected(selected, self.scope);
+                selected = {};
 
             }
         });
     }
 
-    detached(){
+    unbind(){
         this.typeahead.typeahead('destroy');
     }
 

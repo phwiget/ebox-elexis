@@ -1,0 +1,17 @@
+<template>
+
+    <ul class="pagination pagination-info">
+
+        <li><a href="javascript:void(0);" show.bind="boundaries" click.delegate="toFirst()">&laquo;</a></li>
+        <li><a href="javascript:void(0);" click.delegate="onLeft()">&lsaquo;</a></li>
+
+        <li repeat.for="i of visiblePages" class="${i === currentPage ? 'active' : ''}">
+            <a href="javascript:void(0);" click.delegate="onPageChanged(i)">${i}</a>
+        </li>
+
+        <li><a href="javascript:void(0);" click.delegate="onRight()">&rsaquo;</a></li>
+        <li><a href="javascript:void(0);" show.bind="boundaries" click.delegate="toLast()">&raquo;</a></li>
+
+    </ul>
+
+</template>

@@ -1,6 +1,6 @@
 #ERRORS
-error.user.unauthorized = Le login était...
-error.server.unavailable = Le serveur n'est pas connecté.
+error.user.unauthorized = Le login Ã©tait...
+error.server.unavailable = Le serveur n'est pas connectÃ©.
 
 #Login
 login.wiki = Wiki

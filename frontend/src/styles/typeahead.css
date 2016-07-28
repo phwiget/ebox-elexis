@@ -1,20 +1,64 @@
+.twitter-typeahead{
+    width: 90%;
+}
 .tt-menu{
 
-    border-radius: 3px;
+    border-radius: 4px;
     color: rgba(0,0,0, 0.87);
     background: #fff;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
     cursor: pointer;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    min-width: 200px;
+
+    min-width:200px;
+
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    background-clip: padding-box;
+    padding: 5px 0;
+    margin: 2px 0 0;
+
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+
 }
 
-.tt-suggestion{
-    padding: 5px;
+
+.tt-suggestion, .empty-message{
+
+    display: block;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    font-size: 13px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 2px;
+    -webkit-transition: all 150ms linear;
+    -moz-transition: all 150ms linear;
+    -o-transition: all 150ms linear;
+    -ms-transition: all 150ms linear;
+    transition: all 150ms linear;
 }
-.tt-suggestion:hover{
-    background-color: #4caf50;
+.tt-suggestion:hover,.tt-suggestion:active,.tt-suggestion.tt-cursor{
+
     color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    background-color: #4caf50;
+
+}
+div.typeahead{
+    background: #ffffff  !important;
+    padding-left:30px;
+    border-radius: 40px;
+    margin-bottom: 10px;
+    margin-top: -20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.mm-divider.selection{
+    color: #ffffff !important;
 }

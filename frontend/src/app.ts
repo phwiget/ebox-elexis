@@ -9,12 +9,16 @@ export class App {
 
   configureRouter(config: RouterConfiguration, router: Router) {
     
-    config.title = 'Elexis';
+    // config.title = 'eBox-Elexis';
 
     config.map([
-      { route: ['', 'home'], name: 'home',      moduleId: 'views/navigation/flat-menu',      nav: true, title: 'Home' },
-      { route: 'welcome', name: 'welcome',      moduleId: 'views/samples/welcome',      nav: true, title: 'Welcome' },
-      { route: 'components',    name: 'components',   moduleId: 'views/samples/components', nav: true, title: 'Components to Play' }
+      { route: ['', 'home'], name: 'home',      moduleId: 'views/navigation/flat-menu',      nav: true},
+      { route: 'welcome', name: 'welcome',      moduleId: 'views/samples/welcome',      nav: true},
+      { route: 'components',    name: 'components',   moduleId: 'views/samples/components', nav: true},
+      { route: 'medication',    name: 'medication',   moduleId: 'views/medication/medication', nav: true},
+      { route: 'agenda',    name: 'agenda',   moduleId: 'views/agenda/agenda', nav: true},
+      { route: 'authentication',    name: 'authentication',   moduleId: 'views/settings/authentication', nav: true}
+
     ]);
 
     this.router = router;

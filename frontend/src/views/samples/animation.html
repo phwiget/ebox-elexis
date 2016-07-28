@@ -1,0 +1,8 @@
+<template>
+    <section>
+        <ul class="aurelia-animators">
+            <li class="au-animate" repeat.for="anim of animators">
+                <i class="fa fa-trash" click.delegate="$parent.removeAnimator(anim)"> </i> ${anim}</li>
+        </ul>
+    </section>
+</template>
