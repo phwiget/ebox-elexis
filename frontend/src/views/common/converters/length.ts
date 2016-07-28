@@ -6,8 +6,8 @@ export class LengthValueConverter {
 
         var filter = new FilterValueConverter();
 
-        if (array===undefined || array === null) {return 0;}
-        if (expression === undefined || expression === null) return array.length;
+        if (array == null) {return 0;}
+        if (expression == null) return array.length;
 
         return filter.toView(array,expression).length;
 

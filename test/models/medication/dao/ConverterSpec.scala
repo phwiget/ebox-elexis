@@ -23,13 +23,18 @@ class ConverterSpec extends PlaySpecification with Samples{
       val o1 = medicationOrderConverter(order1)
       o1.id must equalTo("Ff60020d714950f83034")
       o1.identifier.head must equalTo(o1.id)
-      o1.dateWritten.get must equalTo(new DateTime(2016,7,22,9,54,35))
-      o1.note.get must equalTo("Morgens-Mittags-Vor schlafengehen")
+      o1.status.get must equalTo("completed")
       o1.medicationCodeableConcept.codings.head.code.get must equalTo("A10BH01")
       o1.medicationCodeableConcept.text.get must equalTo("JANUVIA 100 mg Filmtabl")
       o1.dosageInstructions.head.text must equalTo(Some("1-1-0-1"))
+      o1.eventHistory.head.dateTime must equalTo(new DateTime(2016,7,27,11,51,36))
+      o1.eventHistory.head.status must equalTo("active")
+      o1.eventHistory.last.dateTime must equalTo(new DateTime(2016,7,28,11,51,36))
+      o1.eventHistory.last.status must equalTo("stopped")
+      o1.eventHistory.last.reason.get.text.get must equalTo("Geändert durch Wiget Philipp")
 
     }
+
     "convert a XML into MedicalOrders" in {
 
       val orders = medicationOrdersConverter(orders1)

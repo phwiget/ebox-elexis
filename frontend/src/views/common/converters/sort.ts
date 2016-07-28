@@ -3,7 +3,7 @@ export class SortValueConverter {
     toView(array: Array<any>, propertyName: string, asc: boolean = true) {
         let factor = asc ? 1 : -1;
 
-        if (array===undefined) {return array;}
+        if (array == null) {return array;}
 
         return array.sort((a, b) => {
             return this.sort(a,b,propertyName,factor)
@@ -23,18 +23,18 @@ export class SortValueConverter {
         
         tail.map(p => {
 
-           if (elementA !== undefined){
+           if (elementA != null){
                elementA = elementA[p];
                if (typeof elementA === 'string' || elementA instanceof String){valueType = 'string';}
            }
-            if (elementB !== undefined){
+            if (elementB != null){
                 elementB = elementB[p];
             }
         });
 
 
-        if (elementA === undefined){return factor;}
-        if (elementB === undefined){return -1*factor;}
+        if (elementA == null){return factor;}
+        if (elementB == null){return -1*factor;}
 
         if (valueType === 'string'){
 

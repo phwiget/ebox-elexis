@@ -3,7 +3,7 @@ export class FilterValueConverter {
 
     toView(array: Array<any>, expression: string) {
 
-        if (array===undefined || array === null || expression === undefined || expression === null) {return array;}
+        if (array== null || expression == null) {return array;}
 
         return this.filterArray(array, expression.toLowerCase());
 
@@ -19,11 +19,11 @@ export class FilterValueConverter {
 
             obj.hasOwnProperty(i) ? child = obj[i] : child = obj;
 
-            (child !== null && typeof child === 'object') ? match = this.filterObject(child,expression) :
+            (child != null && typeof child === 'object') ? match = this.filterObject(child,expression) :
 
                 (Object.prototype.toString.call(child) === '[object Array]' ) ? match = this.filterArray(child, expression) :
 
-                    (child === undefined) ? match= false: match = child.toString().toLowerCase().indexOf(expression) !== -1;
+                    (child == null) ? match= false: match = child.toString().toLowerCase().indexOf(expression) !== -1;
 
             if (match){break;}
         }

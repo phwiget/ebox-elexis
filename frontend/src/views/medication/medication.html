@@ -12,8 +12,6 @@
 
     <bread-crumb title="@Messages('medication.title')"></bread-crumb>
 
-
-
     <div class="row">
         <div class="col-md-2">
 
@@ -28,7 +26,7 @@
 
         <div class=" col-md-offset-4 col-md-6">
 
-            <button class="btn btn-info pull-right btn-sm btn-history" click.delegate="history = !history">
+            <button class="btn btn-info pull-right btn-sm btn-history" click.delegate="loadHistory()">
                 @Messages('medication.history')
                 &nbsp;<i class="material-icons" show.bind="history">done</i>
             </button>
@@ -55,11 +53,11 @@
 
                         <th  class="text-center">@Messages('medication.table.type')</th>
                         <th class="clickable" click.delegate="sort('medicationCodeableConcept.text')">@Messages('medication.table.article') <chevron key.bind="sortKey" model="medicationCodeableConcept.text" asc.bind="asc" ></chevron></th>
-                        <th>@Messages('medication.table.dosage') <chevron key.bind="sortKey" model="abc" asc.bind="asc" ></chevron></th>
-                        <th class="clickable" click.delegate="sort('note')">@Messages('medication.table.instruction') <chevron key.bind="sortKey" model="note" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('instructions')">@Messages('medication.table.dosage') <chevron key.bind="sortKey" model="instructions" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('notes')">@Messages('medication.table.instruction') <chevron key.bind="sortKey" model="notes" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('dateWritten')">@Messages('medication.table.start') <chevron key.bind="sortKey" model="dateWritten" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('dateEnded')">@Messages('medication.table.end') <chevron key.bind="sortKey" model="dateEnded" asc.bind="asc" ></chevron></th>
-                        <th class="clickable" click.delegate="sort('m.dosageInstructions.text')">@Messages('medication.table.reason') <chevron key.bind="sortKey" model="m.dosageInstructions.text" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('reasonEnded')">@Messages('medication.table.reason') <chevron key.bind="sortKey" model="reasonEnded" asc.bind="asc" ></chevron></th>
                         <th class="text-right">@Messages('medication.table.actions')</th>
 
                     </tr>
@@ -69,16 +67,16 @@
                     <tr  repeat.for="m of medications | filter:search | sort:sortKey:asc | paginate:currentPage:10" class="fade-in ${loading ? '' : 'is-visible'}">
                             <td class="text-center">F</td>
                             <td >${m.medicationCodeableConcept.text}</td>
-                            <td>${m.dosageInstructions[0].text}</td>
-                            <td>${m.note}</td>
+                            <td>${m.instructions + " " + m.additionalInstructions}</td>
+                            <td>${m.notes}</td>
                             <td class="text-right">${m.dateWritten | dateFormat}</td>
                             <td class="text-right">${m.dateEnded | dateFormat}</td>
-                            <td>${m.dosageInstructions.text}</td>
+                            <td>${m.reasonEnded}</td>
 
                             <td class="td-actions text-right">
-                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-info">
-                                    <i class="material-icons">person</i>
-                                </button>
+                                <!--<button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-info">-->
+                                    <!--<i class="material-icons">person</i>-->
+                                <!--</button>-->
                                 <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-success">
                                     <i class="material-icons">edit</i>
                                 </button>

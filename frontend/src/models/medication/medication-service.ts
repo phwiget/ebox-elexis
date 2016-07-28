@@ -26,7 +26,7 @@ export class MedicationService{
 
         if (this.cache[key]){return Promise.resolve(this.cache[key]);}
 
-        return this.httpService.get(jsRoutes.controllers.medication.MedicationCtrl.list(patientId).url).then(r => {
+        return this.httpService.get(jsRoutes.controllers.medication.MedicationCtrl.list(patientId, history).url).then(r => {
 
             this.cache[key] = r.response;
 

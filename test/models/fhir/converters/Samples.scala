@@ -34,4 +34,20 @@ trait Samples {
       </coding>
       <text value="JANUVIA 100 mg Filmtabl"></text>
     </medicationCodeableConcept>
+
+  val annotation1 =
+    <note>
+      <time value="2016-06-27T11:50:32+02:00"></time>
+      <author value="John Doe"></author>
+      <text value="Vor dem Essen"></text>
+    </note>
+
+  val event1 =
+      <eventHistory>
+        <status value="stopped"></status>
+        <dateTime value="2016-07-27T11:51:36+02:00"></dateTime>
+        <reason>
+          <text value="Geändert durch Wiget Philipp"></text>
+        </reason>
+      </eventHistory>
 }

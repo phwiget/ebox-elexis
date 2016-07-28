@@ -10,6 +10,7 @@ export class Medication extends Materialize{
 
     private subscription: Disposable;
     private medicationService: MedicationService;
+    private patientService: PatientService;
 
     medications: Array<any>;
     asc: boolean = false;
@@ -21,6 +22,8 @@ export class Medication extends Materialize{
         super();
 
         this.medicationService = medicationService;
+        this.patientService = patientService;
+
         this.patientValueChanged(patientService.selectedPatient,null);
 
         this.subscription = bindingEngine
@@ -33,19 +36,27 @@ export class Medication extends Materialize{
     patientValueChanged(newValue: Patient, oldValue: Patient) {
 
         if (newValue){
+            this.history = false;
             this.loadMedications(newValue.id);
             if (this.sortKey === '') {this.sortKey = 'dateWritten'}
         }
 
     }
 
+    loadHistory(){
+
+        this.history = !this.history;
+        this.loadMedications(this.patientService.selectedPatient.id);
+
+    }
 
     private loadMedications(patientId) {
 
         this.loading = true;
+
         var self = this;
 
-        this.medicationService.list(patientId).then(m => {
+        this.medicationService.list(patientId, this.history).then(m => {
 
             this.medications = m;
             //Call to make the action buttons dynamic

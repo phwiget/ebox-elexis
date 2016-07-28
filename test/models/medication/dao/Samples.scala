@@ -25,8 +25,7 @@ trait Samples {
         <system value="www.elexis.info/objid"></system>
         <value value="Ff60020d714950f83034"></value>
       </identifier>
-      <dateWritten value="2016-07-22T09:54:35+02:00"></dateWritten>
-      <note value="Morgens-Mittags-Vor schlafengehen"></note>
+      <status value="completed"></status>
       <medicationCodeableConcept>
         <coding>
           <system value="urn:oid:2.16.840.1.113883.6.73‎"></system>
@@ -37,6 +36,17 @@ trait Samples {
       <dosageInstruction>
         <text value="1-1-0-1"></text>
       </dosageInstruction>
+      <eventHistory>
+        <status value="active"></status>
+        <dateTime value="2016-07-27T11:51:36+02:00"></dateTime>
+      </eventHistory>
+      <eventHistory>
+        <status value="stopped"></status>
+        <dateTime value="2016-07-28T11:51:36+02:00"></dateTime>
+        <reason>
+          <text value="Geändert durch Wiget Philipp"></text>
+        </reason>
+      </eventHistory>
     </MedicationOrder>
 
   val orders1 =
@@ -64,7 +74,9 @@ trait Samples {
               <value value="Ff60020d714950f83034"></value>
             </identifier>
             <dateWritten value="2016-07-22T09:54:35+02:00"></dateWritten>
-            <note value="Morgens-Mittags-Vor schlafengehen"></note>
+            <note>
+              <text value="Vor dem Essen"></text>
+            </note>
             <medicationCodeableConcept>
               <coding>
                 <system value="urn:oid:2.16.840.1.113883.6.73‎"></system>

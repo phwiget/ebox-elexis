@@ -22,7 +22,7 @@ class AuthenticationServiceSpec extends PlaySpecification with Mockito with Sing
   val environment = mock[Environment]
 
   val ws = MockWS {
-    case (POST, "/login") => Action { Results.Ok(Json.obj("id" -> "abc","name" -> "tester", "roles" -> Json.arr("a","b","c"), "permissions" -> Json.arr()))}
+    case (POST, "/login") => Action { Results.Ok(Json.obj("id" -> "abc","name" -> "tester","token"->"TOKEN", "roles" -> Json.arr("a","b","c"), "permissions" -> Json.arr()))}
     case (POST, "/fail") => Action { Results.BadRequest }
     case (POST, "/fail2") => Action { Results.BadGateway }
   }

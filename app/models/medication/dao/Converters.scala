@@ -24,14 +24,13 @@ object Converters {
   implicit val medicationOrderConverter = (xml: NodeSeq) => {
 
     MedicationOrder(
-      (xml \ "id" \ "@value").text,
+      (xml \  "id" \ "@value").text,
       (xml \\ "identifier").map(i => (i \ "value" \ "@value").text),
-      (xml \ "dateWritten" \ "@value").headOption.map(d => DateTime.parse(d.text,dateFormatter)),
-      (xml \ "dateEnded" \ "@value").headOption.map(d => DateTime.parse(d.text,dateFormatter)),
-      (xml \ "reasonEnded" \ "@value").headOption.map(_.text),
-      (xml \ "note" \ "@value").headOption.map(_.text),
-      (xml \ "medicationCodeableConcept").map(codeableConceptConverter).head,
-      (xml \\ "dosageInstruction").map(dosageInstructionConverter)
+      (xml \  "status" \ "@value").headOption.map(_.text),
+      (xml \\ "note").map(annotationConverter),
+      (xml \  "medicationCodeableConcept").map(codeableConceptConverter).head,
+      (xml \\ "dosageInstruction").map(dosageInstructionConverter),
+      (xml \\ "eventHistory").map(eventHistoryConverter)
     )
 
   }
