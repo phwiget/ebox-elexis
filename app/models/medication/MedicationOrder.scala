@@ -19,6 +19,7 @@ case class MedicationOrder(
   lazy val isReserve: Boolean = entryType == Constants.EntryTypes.ReserveMedication
 
   lazy val note = notes.map(_.text).mkString(", ")
+  lazy val article = medicationCodeableConcept.text
   lazy val dateWritten: Option[DateTime] = eventHistory.find(_.status == Active).map(_.dateTime)
   lazy val dateEnded: Option[DateTime] = eventHistory.find(_.status == Stopped).map(_.dateTime)
   lazy val reasonEnded: Option[String] = eventHistory.find(_.status == Stopped).flatMap(_.reason.flatMap(_.text))

@@ -52,7 +52,7 @@
                     <tr>
 
                         <th  class="text-center">@Messages('medication.table.type')</th>
-                        <th class="clickable" click.delegate="sort('medicationCodeableConcept.text')">@Messages('medication.table.article') <chevron key.bind="sortKey" model="medicationCodeableConcept.text" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('article')">@Messages('medication.table.article') <chevron key.bind="sortKey" model="article" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('instructions')">@Messages('medication.table.dosage') <chevron key.bind="sortKey" model="instructions" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('notes')">@Messages('medication.table.instruction') <chevron key.bind="sortKey" model="notes" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('dateWritten')">@Messages('medication.table.start') <chevron key.bind="sortKey" model="dateWritten" asc.bind="asc" ></chevron></th>
@@ -64,9 +64,9 @@
                     </thead>
                     <tbody >
 
-                    <tr  repeat.for="m of medications | filter:search | sort:sortKey:asc | paginate:currentPage:10" class="fade-in ${loading ? '' : 'is-visible'}">
-                            <td class="text-center">F</td>
-                            <td >${m.medicationCodeableConcept.text}</td>
+                    <tr  repeat.for="m of medications | filter:search | sort:sortKey:asc | paginate:currentPage:10" class="fade-in ${loading ? '' : 'is-visible'} ${m.isHistory ? 'is-history' : ''}">
+                            <td class="text-center ${m.isReserve ? 'text-info' : 'text-primary'} ${m.isHistory ? 'text-danger': ''}">${m.isReserve ? 'R' : 'F'}</td>
+                            <td >${m.article}</td>
                             <td>${m.instructions + " " + m.additionalInstructions}</td>
                             <td>${m.notes}</td>
                             <td class="text-right">${m.dateWritten | dateFormat}</td>

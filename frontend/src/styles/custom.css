@@ -65,3 +65,7 @@ body {
 .btn-history{
     margin-top: -10px !important;
 }
+.is-history{
+    color: #777;
+    font-style: italic;
+}
