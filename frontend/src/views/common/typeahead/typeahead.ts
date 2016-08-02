@@ -1,5 +1,5 @@
 import {autoinject} from "aurelia-dependency-injection";
-import 'typeahead.js';
+import 'typeahead';
 import {bindable} from "aurelia-framework";
 
 declare var $;

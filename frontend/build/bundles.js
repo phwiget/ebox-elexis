@@ -3,7 +3,7 @@ module.exports = {
     "dist/app-build": {
       "includes": [
         "[**/*.js]",
-        "**/*.html!text",
+        // "**/*.html!text",
         "**/*.css!text"
       ],
       "options": {
@@ -17,10 +17,10 @@ module.exports = {
       "includes": [
         "aurelia-framework",
         "aurelia-bootstrapper",
-        "aurelia-fetch-client",
+        // "aurelia-fetch-client",
         "aurelia-http-client",
         "aurelia-router",
-        "aurelia-animator-css",
+        // "aurelia-animator-css",
         "aurelia-templating-binding",
         "aurelia-polyfills",
         "aurelia-templating-resources",
@@ -32,10 +32,12 @@ module.exports = {
         "bootstrap/css/bootstrap.css!text",
         "fetch",
         "jquery",
+        "jquery-mobile",
         "material",
         "material-kit",
         "bootstrap-datepicker",
         "mmenu",
+        "typeahead",
         "github:custom/creative_tim/css/material-all.css!text",
         "github:custom/mmenu/dist/css/hamburger.css!text",
         "github:custom/mmenu/dist/css/jquery.mmenu.custom.css!text"
