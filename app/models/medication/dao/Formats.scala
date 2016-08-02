@@ -14,6 +14,7 @@ object Formats {
 
       "id" -> m.id,
       "status" -> m.status,
+      "entryType" -> m.entryType,
       "notes" -> m.note,
       "dateWritten" -> m.dateWritten,
       "dateEnded" -> m.dateEnded,

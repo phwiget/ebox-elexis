@@ -15,9 +15,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import models.authentication.Formats._
-import play.api.{Environment, Mode}
+import play.api.{Environment, Configuration}
 
-class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, cache: CacheApi)(env: Environment) {
+class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, cache: CacheApi)(conf: Configuration) {
 
   val CacheKey = "users_"
 
@@ -33,7 +33,7 @@ class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, 
     val url = endpoints.Authentication.login
     val loginData: JsValue = Json.obj("user" -> credentials.username, "password" -> credentials.password)
 
-    if (env.mode == Mode.Dev) {
+    if (conf.getBoolean("application.skipAuthentication").getOrElse(false)) {
 
       val u = Json.obj("id" -> "abc","name" -> "tester", "roles" -> Json.arr("a","b","c"), "permissions" -> Json.arr("z"), "token" -> "SECRET_TOKEN")
       Future.successful(redirect(cache(toUser(u)), onSuccess))

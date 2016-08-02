@@ -6,4 +6,10 @@ object Constants {
   val Stopped = "stopped"
   val Completed = "completed"
 
+  object EntryTypes{
+    val ReserveMedication = "RESERVE_MEDICATION"
+    val Unknown = "UNKNOWN"
+  }
+
+
 }

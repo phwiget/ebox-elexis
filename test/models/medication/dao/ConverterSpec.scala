@@ -2,6 +2,7 @@ package models.medication.dao
 
 import play.api.test.PlaySpecification
 import Converters._
+import models.medication.Constants
 import org.joda.time.DateTime
 
 class ConverterSpec extends PlaySpecification with Samples{
@@ -23,6 +24,7 @@ class ConverterSpec extends PlaySpecification with Samples{
       val o1 = medicationOrderConverter(order1)
       o1.id must equalTo("Ff60020d714950f83034")
       o1.identifier.head must equalTo(o1.id)
+      o1.entryType must equalTo(Constants.EntryTypes.ReserveMedication)
       o1.status.get must equalTo("completed")
       o1.medicationCodeableConcept.codings.head.code.get must equalTo("A10BH01")
       o1.medicationCodeableConcept.text.get must equalTo("JANUVIA 100 mg Filmtabl")

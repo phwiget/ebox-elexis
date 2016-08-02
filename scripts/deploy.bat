@@ -27,6 +27,10 @@ robocopy frontend\styles public\styles /MIR  /NFL /NDL /NJH /NJS /nc /ns
 
 XCOPY frontend\config.js public\config.js* /Y /D
 
+ECHO unbundle..
+cd %LOCAL_PATH%frontend
+CALL gulp unbundle
+cd ..
 
 REM Create package
 ECHO creating dist-package...

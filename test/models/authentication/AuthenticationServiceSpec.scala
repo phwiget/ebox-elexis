@@ -10,7 +10,7 @@ import play.api.libs.ws.WSClient
 import play.api.mvc.{Action, Call, Results}
 import play.api.test.PlaySpecification
 import mockws.MockWS
-import play.api.{Environment, Mode}
+import play.api.{Configuration, Environment, Mode}
 
 
 class AuthenticationServiceSpec extends PlaySpecification with Mockito with SingleInstance{
@@ -19,7 +19,7 @@ class AuthenticationServiceSpec extends PlaySpecification with Mockito with Sing
   val endpoints = mock[Endpoints]
   endpoints.Authentication returns mock[AuthenticationServiceSpec.this.endpoints.Authentication.type]
   val cache = mock[FakeCache]
-  val environment = mock[Environment]
+  val conf = mock[Configuration]
 
   val ws = MockWS {
     case (POST, "/login") => Action { Results.Ok(Json.obj("id" -> "abc","name" -> "tester","token"->"TOKEN", "roles" -> Json.arr("a","b","c"), "permissions" -> Json.arr()))}
@@ -27,7 +27,7 @@ class AuthenticationServiceSpec extends PlaySpecification with Mockito with Sing
     case (POST, "/fail2") => Action { Results.BadGateway }
   }
 
-  val service = new AuthenticationService(ws,endpoints,cache)(environment)
+  val service = new AuthenticationService(ws,endpoints,cache)(conf)
 
   "Authentication Service" should {
 
@@ -50,9 +50,9 @@ class AuthenticationServiceSpec extends PlaySpecification with Mockito with Sing
       val onUnauthorized = (s: String) => Results.BadRequest(s)
       val onSuccess = (user: User) => Results.BadRequest("test")
 
-      val service = new AuthenticationService(ws,endpoints,new FakeCache)(environment)
+      val service = new AuthenticationService(ws,endpoints,new FakeCache)(conf)
 
-      environment.mode returns Mode.Prod
+      conf.getBoolean("application.skipAuthentication") returns Some(false)
 
       endpoints.Authentication.login returns "/login"
 

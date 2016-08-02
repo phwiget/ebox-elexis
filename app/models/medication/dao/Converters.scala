@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, ISODateTimeFormat}
 
 import scala.xml.NodeSeq
+import models.medication.Constants._
 
 object Converters {
 
@@ -26,6 +27,7 @@ object Converters {
     MedicationOrder(
       (xml \  "id" \ "@value").text,
       (xml \\ "identifier").map(i => (i \ "value" \ "@value").text),
+      (xml \ "extension").map(e => (e \ "valueCode" \ "@value").text).headOption.getOrElse(EntryTypes.Unknown),
       (xml \  "status" \ "@value").headOption.map(_.text),
       (xml \\ "note").map(annotationConverter),
       (xml \  "medicationCodeableConcept").map(codeableConceptConverter).head,

@@ -1,6 +1,6 @@
 package controllers
 
-import java.io.ByteArrayInputStream
+import java.io.{ByteArrayInputStream, FileInputStream, InputStream}
 import java.util.zip.GZIPInputStream
 
 import controllers.Assets.Asset
@@ -11,6 +11,7 @@ import play.api.{Configuration, Environment, Mode}
 import play.api.test.{FakeRequest, PlaySpecification}
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.io.Source
 
 class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{sequential
 
@@ -20,7 +21,6 @@ class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{s
   val cache = new FakeCache
   val conf = mock[Configuration]
   conf.getString("play.frontend.path") returns Some("test/resources/controllers/")
-
 
   val messagesApi = mock[MessagesApi]
   val controller = new Resources(environment,conf,cache)(messagesApi)
@@ -120,7 +120,10 @@ class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{s
 
     "get a html-template from cache in production" in {
 
+      val is = new FileInputStream("test/resources/controllers/template.html")
+
       environment.mode returns  Mode.Prod
+      environment.resourceAsStream("public/" + "template.html") returns Some(is)
 
       val request1 = FakeRequest("GET","/")
 
@@ -132,9 +135,11 @@ class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{s
       messagesApi("test.test")(lang) returns "In German"
       messagesApi("test.test1")(lang) returns "Oh Yeah"
 
-      val result1 = controller.get("test/resources/controllers/",Asset("template.html"))(request1)
+      val result1 = controller.get("/public",Asset("template.html"))(request1)
 
       status(result1) must equalTo(200)
+
+      is.close()
 
       cache.get("template_detemplate.html").isDefined must equalTo(true)
 

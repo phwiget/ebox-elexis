@@ -1,6 +1,7 @@
 package controllers
 
-import java.nio.charset. StandardCharsets
+import java.io.{BufferedReader, InputStream, InputStreamReader}
+import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Paths}
 import java.security.MessageDigest
 import java.util.zip.GZIPOutputStream
@@ -123,8 +124,10 @@ class Resources @Inject()(
   def createTemplate(template:String,lang:String,reverseRouter:String => String): String = {
 
     implicit val language = Messages(Lang(lang), messagesApi)
-    val templateString = new String(Files.readAllBytes(Paths.get(frontendPath + template)),StandardCharsets.UTF_8)
 
+    val templateString =
+        if (env.mode == Mode.Dev) new String(Files.readAllBytes(Paths.get(frontendPath + template)),StandardCharsets.UTF_8)
+        else inputStreamToString(env.resourceAsStream("public/" + template).get)
 
     lazy val pattern = "(?<=@Messages\\(\')(.*?)(?=\'\\))".r
     lazy val part1 = """@Messages('"""
@@ -146,7 +149,11 @@ class Resources @Inject()(
 
   }
 
-
+  private def inputStreamToString(is: InputStream) = {
+    val inputStreamReader = new InputStreamReader(is,StandardCharsets.UTF_8)
+    val bufferedReader = new BufferedReader(inputStreamReader)
+    Iterator continually bufferedReader.readLine takeWhile (_ != null) mkString
+  }
   /**
     * Generates and provides a javascript with all translation for the implicit Language and the specified locator. This is a helper method to assist i18n with Angular2 templates. <br>
     *   Example: messages("home") fetches all keys starting with "home", e.g. "home.title", "home.header".<br><br>

@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 case class MedicationOrder(
   id: String,
   identifier: Seq[String],
+  entryType: String,
   status: Option[String],
   notes: Seq[Annotation],
   medicationCodeableConcept: CodeableConcept,
@@ -15,6 +16,7 @@ case class MedicationOrder(
 ) {
 
   lazy val isHistory: Boolean = status.contains(Completed)
+  lazy val isReserve: Boolean = entryType == Constants.EntryTypes.ReserveMedication
 
   lazy val note = notes.map(_.text).mkString(", ")
   lazy val dateWritten: Option[DateTime] = eventHistory.find(_.status == Active).map(_.dateTime)

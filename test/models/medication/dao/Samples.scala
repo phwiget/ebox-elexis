@@ -25,6 +25,9 @@ trait Samples {
         <system value="www.elexis.info/objid"></system>
         <value value="Ff60020d714950f83034"></value>
       </identifier>
+      <extension url="www.elexis.info/extensions/prescription/entrytype">
+        <valueCode value="RESERVE_MEDICATION"></valueCode>
+      </extension>
       <status value="completed"></status>
       <medicationCodeableConcept>
         <coding>
