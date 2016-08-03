@@ -34,6 +34,10 @@ medication.table.start = Start
 medication.table.end = Ende
 medication.table.reason = Grund des Stopps
 medication.table.actions = Aktionen
+medication.modal.title = Medikation löschen
+medication.modal.text = Möchten Sie die Medikation wirklich löschen?
+medication.modal.delete = Löschen
+medication.modal.cancel = Schliessen
 
 #Agenda
 agenda.title = Agenda

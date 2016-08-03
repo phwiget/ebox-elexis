@@ -69,3 +69,6 @@ body {
     color: #777;
     font-style: italic;
 }
+/*.modal.fade{*/
+    /*z-index: 200;*/
+/*}*/

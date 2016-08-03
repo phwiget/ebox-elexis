@@ -39,7 +39,7 @@
         <div class="col-md-12">
 
 
-            <div class="loader fade-in ${loading ? 'is-visible' : ''}">
+            <div class="loader ${loading ? 'is-loading' : ''}">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>
                 <div class="bounce3"></div>
@@ -77,10 +77,10 @@
                                 <!--<button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-info">-->
                                     <!--<i class="material-icons">person</i>-->
                                 <!--</button>-->
-                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-success">
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-success" click.trigger="select(m)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-danger">
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" click.trigger="select(m)">
                                     <i class="material-icons">close</i>
                                 </button>
                             </td>
@@ -95,6 +95,25 @@
                 </div>
 
 
+            </div>
+        </div>
+    </div>
+
+<!--Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">@Messages('medication.modal.title')</h4>
+                </div>
+                <div class="modal-body">
+                    @Messages('medication.modal.text')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Messages('medication.modal.cancel')</button>
+                    <button type="button" class="btn btn-warning" click.trigger="delete()">@Messages('medication.modal.delete')</button>
+                </div>
             </div>
         </div>
     </div>

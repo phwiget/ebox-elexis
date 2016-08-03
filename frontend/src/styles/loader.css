@@ -8,6 +8,13 @@
     position: absolute;
     top: 0;
     left: 0;
+
+    opacity: 0.0;
+    z-index: -1;
+    transition:
+        /*	property			duration	delay */
+            z-index			    0.1s        0.4s,
+            opacity		        0.4s ease-in-out 0.0s
 }
 
 .loader > div {
@@ -44,4 +51,15 @@
           -webkit-transform: scale(1.0);
           transform: scale(1.0);
       }
+}
+
+.loader.is-loading{
+    z-index: 2000;
+    opacity: 1.0;
+
+    transition:
+        /*	property			duration	delay */
+            z-index			    0.1s        0.0s,
+            opacity		        0.4s ease-in-out 0.1s
+
 }

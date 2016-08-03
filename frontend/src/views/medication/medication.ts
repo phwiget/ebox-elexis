@@ -5,18 +5,23 @@ import {Patient} from "../../models/patient/patient";
 import {autoinject} from "aurelia-dependency-injection";
 import {Materialize} from "../materialize";
 
+declare var document;
+declare var $;
+
 @autoinject
 export class Medication extends Materialize{
 
     private subscription: Disposable;
     private medicationService: MedicationService;
     private patientService: PatientService;
-
+    private deleteModal: Element;
+    
     medications: Array<any>;
     asc: boolean = false;
     sortKey: string = '';
     loading: boolean = false;
     history: boolean = false;
+    selectedMedication: any;
     
     constructor(patientService: PatientService, medicationService: MedicationService, bindingEngine: BindingEngine){
         super();
@@ -78,7 +83,26 @@ export class Medication extends Materialize{
 
     }
 
+    select(selection: any){
+        this.selectedMedication = selection;
+    }
+
+    delete(){
+
+        console.log("deleting " + this.selectedMedication.id);
+        $('#deleteModal').modal('hide');
+
+    }
+
+    attached() {
+
+        this.deleteModal = document.getElementById('deleteModal');
+        document.body.appendChild(this.deleteModal);
+        super.attached();
+    }
+    
     unbind(){
         this.subscription.dispose();
+        this.deleteModal.remove();
     }
 }
