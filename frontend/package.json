@@ -50,6 +50,8 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-systemjs": "^0.14.0",
+    "karma-phantomjs-launcher":"^1.0.1",
+    "karma-teamcity-reporter":"^1.0.0",
     "object.assign": "^4.0.3",
     "pump": "^1.0.1",
     "require-dir": "^0.3.0",

@@ -3,6 +3,7 @@ package controllers.login
 import helpers.{RequestHelpers, Sessions}
 import play.api.libs.json.Json
 import play.api.test.{FakeRequest, PlaySpecification}
+import play.filters.csrf.CSRF
 
 class LoginCtrlSpec extends PlaySpecification with Sessions with RequestHelpers{
 
