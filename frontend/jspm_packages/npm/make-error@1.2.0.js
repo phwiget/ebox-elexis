@@ -1,0 +1,1 @@
+module.exports = require("npm:make-error@1.2.0/index");

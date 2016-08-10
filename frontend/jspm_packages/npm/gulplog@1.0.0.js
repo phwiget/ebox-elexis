@@ -1,0 +1,1 @@
+module.exports = require("npm:gulplog@1.0.0/index.js");

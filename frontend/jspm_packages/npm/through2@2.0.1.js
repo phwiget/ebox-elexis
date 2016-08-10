@@ -1,0 +1,1 @@
+module.exports = require("npm:through2@2.0.1/through2.js");
