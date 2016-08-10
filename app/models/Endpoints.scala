@@ -34,6 +34,7 @@ class Endpoints {
   object Medication{
 
     val list = (patientId: String) => BaseUrl + "/MedicationOrder" +  query("patient",patientId)
+    val detail = (id: String) => BaseUrl + "/MedicationOrder/" +  id
 
   }
 

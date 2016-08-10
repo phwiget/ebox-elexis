@@ -1268,8 +1268,10 @@
                     {
                         if ( e.keyCode == 9 )
                         {
-                            e.preventDefault();
-                            return false;
+
+                            //e.preventDefault();
+                           // return false;
+                            return true;
                         }
                     }
                 }

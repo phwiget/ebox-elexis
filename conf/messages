@@ -39,6 +39,9 @@ medication.modal.text = Möchten Sie die Medikation wirklich löschen?
 medication.modal.delete = Löschen
 medication.modal.cancel = Schliessen
 
+##Medication - Edit
+medication.edit.title = Medikation bearbeiten
+
 #Agenda
 agenda.title = Agenda
 

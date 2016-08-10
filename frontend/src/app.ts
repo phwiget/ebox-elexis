@@ -15,6 +15,7 @@ export class App {
       { route: 'welcome', name: 'welcome',      moduleId: 'views/samples/welcome',      nav: true},
       { route: 'components',    name: 'components',   moduleId: 'views/samples/components', nav: true},
       { route: 'medication',    name: 'medication',   moduleId: 'views/medication/medication', nav: true},
+      { route: 'medication/:id/edit',    name: 'medicationEdit',   moduleId: 'views/medication/medication-edit'},
       { route: 'agenda',    name: 'agenda',   moduleId: 'views/agenda/agenda', nav: true},
       { route: 'authentication',    name: 'authentication',   moduleId: 'views/settings/authentication', nav: true}
 

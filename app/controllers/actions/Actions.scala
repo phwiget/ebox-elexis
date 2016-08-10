@@ -10,7 +10,7 @@ import play.api.mvc.{RequestHeader, Results}
 class Actions @Inject()(authenticationService: AuthenticationService) {
 
   private def onUnauthorized(r:RequestHeader) = Results.Redirect(controllers.login.routes.LoginCtrl.index()).withNewSession.flashing("redirect" -> "loggedout")
-  private def onForbidden(user:User) = Results.Forbidden("nope")
+  private def onForbidden(user:User) = Results.Forbidden("nothing to see here")
 
   val UserExists = new CheckUserExists(onUnauthorized)(authenticationService)
   val IsAuthenticated = UserExists andThen new GetUserBySession(authenticationService)

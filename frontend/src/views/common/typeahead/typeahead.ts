@@ -3,7 +3,6 @@ import 'typeahead';
 import {bindable} from "aurelia-framework";
 
 declare var $;
-// declare var HandleBars;
 
 @autoinject()
 export class TypeaheadCustomAttribute{

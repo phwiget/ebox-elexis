@@ -14,7 +14,7 @@ class LoginCtrlSpec extends PlaySpecification with Sessions with RequestHelpers{
 
       val request = route(application, FakeRequest(POST,url,fakeCSRFHeader,Json.obj("username"->"abc","password"-> "ce")).withCookies(fakeCSRFCookie)).get
 
-       status(request) must equalTo(400)
+       status(request) must equalTo(200)
 
     }
 

@@ -1,0 +1,190 @@
+<template>
+
+
+    <require from="../common/forms/bread-crumb"></require>
+    <require from="../common/converters/date-format"></require>
+    <require from="../common/focus-me"></require>
+    <require from="../common/select-all"></require>
+    <require from="../common/buttons/dot-button"></require>
+    <require from="../common/date-picker"></require>
+
+    <bread-crumb title="@Messages('medication.edit.title')"></bread-crumb>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                ${medication.article}<br>
+                Start: ${medication.dateWritten | dateFormat} <br show.bind="medication.dateEnded">
+                <span show.bind="medication.dateEnded">Ende: ${medication.dateEnded | dateFormat}</span>
+            </p>
+        </div>
+    </div>
+
+    <form class="form" action="" submit.delegate="">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="row">
+
+                    <div show.bind="!showFreetext">
+                        <div class="col-md-2">
+
+                            <div class="form-group ${isNumeric(medication.posology.morning) ? '' : 'with-error'}">
+                                <label class="control-label">Dosis</label>
+                                <input type="text" placeholder="Morgen" class="form-control"  focus-me.bind="!showFreetext" select-all
+                                value.bind="medication.posology.morning"/>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div class="form-group ${isNumeric(medication.posology.midday) ? '' : 'with-error'}">
+                                <label class="control-label">&nbsp;</label>
+                                <input type="text"  placeholder="Mittag" class="form-control" select-all
+                                       value.bind="medication.posology.midday"/>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+
+                            <div class="form-group ${isNumeric(medication.posology.evening) ? '' : 'with-error'}">
+                                <label class="control-label">&nbsp;</label>
+                                <input type="text" placeholder="Abend" class="form-control" select-all
+                                       value.bind="medication.posology.evening"/>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+
+                            <div class="form-group ${isNumeric(medication.posology.night) ? '' : 'with-error'}">
+                                <label class="control-label">&nbsp;</label>
+                                <input type="text" placeholder="Nacht" class="form-control" select-all
+                                       value.bind="medication.posology.night" />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div show.bind="showFreetext">
+                        <div class="col-lg-8 col-md-12">
+
+                            <div class="form-group">
+                                <label class="control-label">Dosis</label>
+
+                                <input type="text" value="" placeholder="Regular" class="form-control" focus-me.bind="showFreetext" value.bind="medication.instructions" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class=" col-md-2">
+                        <br>
+                        <br>
+
+                        <button class="btn btn-info btn-sm" click.delegate="showFreetext=!showFreetext" tabindex="-1">
+                            Freitext
+                            &nbsp;<i class="material-icons" show.bind="showFreetext">mode_edit</i>
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Einnahmevorschrift</label>
+                            <input type="text" value="" placeholder="Einnahmevorschrift" class="form-control"  value.bind="medication.notes"/>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Zusatzbemerkung</label>
+                            <input type="text" value="" placeholder="Zusatzbemerkung" class="form-control"  value.bind="medication.additionalInstructions"/>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <br>
+                <br>
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                        <div class="togglebutton strong">
+                            <label>
+                                    <input type="checkbox" checked.one-way="!medication.isReserve" change.delegate="onTypeChanged()" tabindex="-1">
+                                ${medication.isReserve ? 'Reservemedikation' : 'Fixmedikation'}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <button class="btn btn-warning btn-block" click.delegate="onStop()" tabindex="-1">Stop &nbsp;
+
+                                <i class="material-icons" show.bind="!hasStopped">pan_tool</i>
+                                <i class="material-icons" show.bind="hasStopped">done</i>
+
+
+                        </button>
+
+                        <div id="stop-inputs" class="collapse with-padding-5">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Stopp-Datum</label>
+                                        <input  class="datepicker form-control" type="text" date-picker="
+                                            format: dd.mm.yyyy;
+                                            model.two-way:endDate"
+                                             />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Grund des Stopps</label>
+                                        <input type="text" value="" placeholder="" class="form-control"  value.bind="medication.reasonEnded"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Unverträglichkeit</label>
+                                        <input type="text" value="" placeholder="Unverträglichkeit" class="form-control"  value.bind="medication.incompatibility"/>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <button class="btn btn-danger btn-block">Löschen &nbsp;<i class="material-icons">close</i></button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success" dot-button.bind="saving" click.delegate="save()">Speichern </button>
+
+            </div>
+        </div>
+    </form>
+
+
+</template>

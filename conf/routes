@@ -17,6 +17,8 @@ GET		/patient/detail				controllers.patient.PatientCtrl.detail(number: Long)
 
 #Medication
 GET		/medication-order/list		controllers.medication.MedicationCtrl.list(patientId: String,history: Boolean?=false)
+GET		/medication-order/:id		controllers.medication.MedicationCtrl.detail(id: String)
+POST	/medication-order/save		controllers.medication.MedicationCtrl.save()
 
 #I18N
 GET		/messages/*locator			controllers.Resources.messages(locator:String)

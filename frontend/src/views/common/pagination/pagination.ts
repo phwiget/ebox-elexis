@@ -6,7 +6,7 @@ export class Pagination{
     @bindable maxSize: number = 5;
     @bindable itemsPerPage: number = 10;
     @bindable totalItems: Array<any>;
-    @bindable currentPage: number = 1;
+    @bindable currentPage: number;
     @bindable onChange: any = null;
     @bindable boundaries: boolean = false;
 
@@ -18,7 +18,10 @@ export class Pagination{
         if (this.totalItems === undefined){this.totalItems = [];}
 
         this.pages = Math.ceil(this.totalItems.length/this.itemsPerPage);
+        let initial = this.currentPage || 1;
         this.selectFirstPage();
+        this.currentPage = initial;
+        this.updatePages();
 
     }
 
@@ -37,7 +40,7 @@ export class Pagination{
 
         this.pages = Math.ceil(this.totalItems.length/this.itemsPerPage);
         this.selectFirstPage();
-        
+
     }
     onPageChanged(newPage: number){
 

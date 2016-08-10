@@ -1,11 +1,13 @@
 <template>
     <require from="../common/forms/bread-crumb"></require>
+
     <require from="../common/converters/date-format"></require>
     <require from="../common/converters/filter"></require>
     <require from="../common/converters/show"></require>
-
     <require from="../common/converters/sort"></require>
     <require from="../common/converters/paginate"></require>
+    <require from="../common/focus-me"></require>
+
     <require from="../common/forms/chevron.html"></require>
     <require from="../../styles/loader.css"></require>
     <require from="../common/pagination/pagination"></require>
@@ -14,12 +16,11 @@
 
     <div class="row">
         <div class="col-md-2">
-
             <div class="input-group search-form fade-in ${history ? 'is-visible' : ''}">
                 <span class="input-group-addon">
                     <i class="material-icons">search</i>
                 </span>
-                <input type="text" class="form-control" placeholder="Suche" value.bind="search">
+                <input type="text" class="form-control" placeholder="Suche" value.bind="search" focus-me.bind="history">
             </div>
 
         </div>
@@ -45,15 +46,15 @@
                 <div class="bounce3"></div>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive ">
 
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                     <tr>
 
-                        <th  class="text-center">@Messages('medication.table.type')</th>
+                        <th  class="text-center clickable" click.delegate="sort('isReserve')">@Messages('medication.table.type')<chevron key.bind="sortKey" model="isReserve" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('article')">@Messages('medication.table.article') <chevron key.bind="sortKey" model="article" asc.bind="asc" ></chevron></th>
-                        <th class="clickable" click.delegate="sort('instructions')">@Messages('medication.table.dosage') <chevron key.bind="sortKey" model="instructions" asc.bind="asc" ></chevron></th>
+                        <th class="clickable" click.delegate="sort('dosage')">@Messages('medication.table.dosage') <chevron key.bind="sortKey" model="dosage" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('notes')">@Messages('medication.table.instruction') <chevron key.bind="sortKey" model="notes" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('dateWritten')">@Messages('medication.table.start') <chevron key.bind="sortKey" model="dateWritten" asc.bind="asc" ></chevron></th>
                         <th class="clickable" click.delegate="sort('dateEnded')">@Messages('medication.table.end') <chevron key.bind="sortKey" model="dateEnded" asc.bind="asc" ></chevron></th>
@@ -67,7 +68,7 @@
                     <tr  repeat.for="m of medications | filter:search | sort:sortKey:asc | paginate:currentPage:10" class="fade-in ${loading ? '' : 'is-visible'} ${m.isHistory ? 'is-history' : ''}">
                             <td class="text-center ${m.isReserve ? 'text-info' : 'text-primary'} ${m.isHistory ? 'text-danger': ''}">${m.isReserve ? 'R' : 'F'}</td>
                             <td >${m.article}</td>
-                            <td>${m.instructions + " " + m.additionalInstructions}</td>
+                            <td>${m.dosage}</td>
                             <td>${m.notes}</td>
                             <td class="text-right">${m.dateWritten | dateFormat}</td>
                             <td class="text-right">${m.dateEnded | dateFormat}</td>
@@ -77,10 +78,10 @@
                                 <!--<button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-info">-->
                                     <!--<i class="material-icons">person</i>-->
                                 <!--</button>-->
-                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-success" click.trigger="select(m)">
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-success" click.trigger="edit(m)" disabled.bind="m.isHistory">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" click.trigger="select(m)">
+                                <button title="" data-original-title="" type="button" rel="tooltip" class="btn btn-danger"  click.trigger="open(m)">
                                     <i class="material-icons">close</i>
                                 </button>
                             </td>

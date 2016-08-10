@@ -18,7 +18,9 @@ class RoutesCtrl extends Controller{
       case _ => Seq(
         controllers.patient.routes.javascript.PatientCtrl.list,
         controllers.patient.routes.javascript.PatientCtrl.detail,
-        controllers.medication.routes.javascript.MedicationCtrl.list
+        controllers.medication.routes.javascript.MedicationCtrl.list,
+        controllers.medication.routes.javascript.MedicationCtrl.detail,
+        controllers.medication.routes.javascript.MedicationCtrl.save
       )
     }
 

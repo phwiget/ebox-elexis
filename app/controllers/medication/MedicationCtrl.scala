@@ -8,11 +8,13 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc.Controller
 import models.medication.dao.Formats.medicationOrderWrites
+import models.medication.dao.MedicationDAO
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 @Singleton
-class MedicationCtrl @Inject()(actions: Actions, mediationService: MedicationService)(val messagesApi: MessagesApi) extends Controller with I18nSupport{
+class MedicationCtrl @Inject()(actions: Actions, mediationService: MedicationService, medicationDAO: MedicationDAO)(val messagesApi: MessagesApi) extends Controller with I18nSupport{
 
   import actions._
 
@@ -22,6 +24,21 @@ class MedicationCtrl @Inject()(actions: Actions, mediationService: MedicationSer
       e => BadRequest(Errors.toJson(e)),
       medicationOrders => Ok(Json.toJson(medicationOrders))
     ))
+
+  }
+
+  def detail(id: String) = IsAuthenticated.async{implicit request =>
+
+    medicationDAO.detail(id).map(_.fold(
+      e => BadRequest(Errors.toJson(e)),
+      medicationOrders => Ok(Json.toJson(medicationOrders))
+    ))
+
+  }
+
+  def save() = IsAuthenticated.async{implicit request =>
+
+    Future(Ok(Json.obj("status" -> "success")))
 
   }
 

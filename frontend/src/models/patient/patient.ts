@@ -11,4 +11,9 @@ export class Patient{
         Object.assign(this, data);
         this.name = new HumanName(data.name);
     }
+
+    get number(){
+        return this.identifier[0];
+    }
+
 }

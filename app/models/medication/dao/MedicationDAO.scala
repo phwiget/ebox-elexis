@@ -20,6 +20,12 @@ class MedicationDAO @Inject()(webService: WebService, endpoints: Endpoints) {
 
   }
 
+  def detail(id: String)(implicit request: UserRequest[AnyContent]): Future[scala.Either[String, MedicationOrder]] = {
+
+    webService.request[MedicationOrder](endpoints.Medication.detail(id),GET)
+
+  }
+
 
 
 

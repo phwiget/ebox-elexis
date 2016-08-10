@@ -42,6 +42,7 @@ export class SideMenu{
 
         api.bind( "close", function() {
 
+            // $(window).on($['mmenu'].keydown);
             $(hamburger).removeClass("is-active");
 
         });
@@ -49,7 +50,14 @@ export class SideMenu{
         api.bind( "open", function() {
 
             $(hamburger).addClass("is-active");
-            // $(".typeahead-jquery").focus();
+
+            $(".typeahead-jquery").focus();
+            // setTimeout(
+            //     function() {
+            //         $(window).off($['mmenu'].keydown);
+            //     },
+            //     1000
+            // );
 
         });
 
@@ -94,9 +102,12 @@ export class SideMenu{
         this.menu = $(this.constants.menuTitle);
 
         if ( viewPortWidth >= 768){
+
             this.api.open();
             $(this.constants.hambugerMenuClass).addClass("is-active");
+
         }
+
 
     }
 

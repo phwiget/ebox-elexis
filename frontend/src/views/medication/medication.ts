@@ -4,6 +4,9 @@ import {BindingEngine,Disposable} from "aurelia-framework";
 import {Patient} from "../../models/patient/patient";
 import {autoinject} from "aurelia-dependency-injection";
 import {Materialize} from "../materialize";
+import {Router} from "aurelia-router";
+import {stateful} from "../../models/state/state-decorator";
+import {StateProvider} from "../../models/state/state-provider";
 
 declare var document;
 declare var $;
@@ -14,17 +17,31 @@ export class Medication extends Materialize{
     private subscription: Disposable;
     private medicationService: MedicationService;
     private patientService: PatientService;
-    private deleteModal: Element;
-    
+    private deleteModal: any;
+    private router: Router;
+    private sp: StateProvider;
+
     medications: Array<any>;
-    asc: boolean = false;
-    sortKey: string = '';
     loading: boolean = false;
+
+    @stateful(false)
+    asc: boolean;
+    @stateful('')
+    sortKey: string;
+    @stateful(false)
     history: boolean = false;
-    selectedMedication: any;
-    
-    constructor(patientService: PatientService, medicationService: MedicationService, bindingEngine: BindingEngine){
+    @stateful('')
+    search: string;
+    @stateful(1)
+    currentPage: number;
+
+    constructor(patientService: PatientService, medicationService: MedicationService, bindingEngine: BindingEngine, router: Router, sp:StateProvider){
         super();
+
+        this.sp = sp;
+        sp.getState(this);
+
+        this.router = router;
 
         this.medicationService = medicationService;
         this.patientService = patientService;
@@ -35,13 +52,25 @@ export class Medication extends Materialize{
             .propertyObserver(patientService,'selectedPatient')
             .subscribe(this.patientValueChanged.bind(this));
 
+    }
 
+    attached() {
+
+        this.deleteModal = $('#deleteModal');
+        this.deleteModal.appendTo('body');
+        super.attached();
+
+    }
+
+    unbind(){
+        this.subscription.dispose();
+        this.deleteModal.remove();
+        this.sp.setState(this);
     }
 
     patientValueChanged(newValue: Patient, oldValue: Patient) {
 
         if (newValue){
-            this.history = false;
             this.loadMedications(newValue.id);
             if (this.sortKey === '') {this.sortKey = 'dateWritten'}
         }
@@ -51,6 +80,7 @@ export class Medication extends Materialize{
     loadHistory(){
 
         this.history = !this.history;
+        if (!this.history) {this.search = '';}
         this.loadMedications(this.patientService.selectedPatient.id);
 
     }
@@ -64,10 +94,11 @@ export class Medication extends Materialize{
         this.medicationService.list(patientId, this.history).then(m => {
 
             this.medications = m;
+
             //Call to make the action buttons dynamic
             super.attached();
 
-        }).then(x => {
+        }).then(() => {
             setTimeout(
                 function() {
                     self.loading = false;
@@ -83,26 +114,23 @@ export class Medication extends Materialize{
 
     }
 
-    select(selection: any){
-        this.selectedMedication = selection;
+    edit(selection: any){
+
+        this.medicationService.selectedMedication = selection;
+        this.router.navigateToRoute('medicationEdit',{"id":selection.id});
+
+    }
+
+    open(selection: any){
+        this.medicationService.selectedMedication = selection;
+        this.deleteModal.modal('show');
     }
 
     delete(){
 
-        console.log("deleting " + this.selectedMedication.id);
-        $('#deleteModal').modal('hide');
+        console.log("deleting " + this.medicationService.selectedMedication.id);
+        this.deleteModal.modal('hide');
 
     }
 
-    attached() {
-
-        this.deleteModal = document.getElementById('deleteModal');
-        document.body.appendChild(this.deleteModal);
-        super.attached();
-    }
-    
-    unbind(){
-        this.subscription.dispose();
-        this.deleteModal.remove();
-    }
 }
