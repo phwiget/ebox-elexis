@@ -4,6 +4,7 @@ import {MedicationService} from "../../models/medication/medication-service";
 import {Materialize} from "../materialize";
 import {PatientService} from "../../models/patient/patient-service";
 import {Patient} from "../../models/patient/patient";
+import {MedicationOrder} from "../../models/medication/medication-order";
 
 declare var $;
 
@@ -14,11 +15,9 @@ export class MedicationEdit extends Materialize{
     private collapse: any;
     private patient: Patient;
 
-    medication: any;
-    showFreetext: boolean = false;
-    endDate: Date = null;
+    medication: MedicationOrder;
     saving: boolean = false;
-    hasStopped: boolean = false;
+
 
     constructor(ms: MedicationService, ps: PatientService){
         super();
@@ -35,15 +34,10 @@ export class MedicationEdit extends Materialize{
 
             this.medicationService.detail(params.id).then(m => {
 
-                this.medicationService.selectedMedication = m;
                 this.medication = m;
-                this.showFreetext = !this.hasPosology(m);
-                this.endDate = this.medication.dateEnded || new Date().getTime();
+                if (this.medication.hasBeenStopped) this.collapse.collapse('show');
 
             });
-        } else {
-            this.showFreetext = !this.hasPosology(this.medication);
-            this.endDate = this.medication.dateEnded || new Date().getTime();
         }
 
     }
@@ -51,13 +45,13 @@ export class MedicationEdit extends Materialize{
     attached(){
         super.attached();
         this.collapse = $("#stop-inputs");
-        if (this.medication.dateEnded != null){this.onStop();}
+        if (this.medication != null && this.medication.hasBeenStopped){this.collapse.collapse('show');}
     }
     
     onStop(){
 
-        this.hasStopped = !this.hasStopped;
-        (this.hasStopped) ? this.collapse.collapse('show') : this.collapse.collapse('hide');
+        this.medication.hasBeenStopped = !this.medication.hasBeenStopped;
+        (this.medication.hasBeenStopped) ? this.collapse.collapse('show') : this.collapse.collapse('hide');
 
     }
 
@@ -65,11 +59,6 @@ export class MedicationEdit extends Materialize{
         this.medication.isReserve = !this.medication.isReserve;
     }
 
-    hasPosology(medication: any){
-
-       return (medication.posology || null) != null;
-
-    }
 
     isNumeric(value: any){
 
@@ -82,15 +71,6 @@ export class MedicationEdit extends Materialize{
         var self = this;
 
         this.saving = true;
-
-        if (!this.showFreetext){this.medicationService.addInstructions(this.medication);}
-
-        this.medicationService.concatInstructions(this.medication);
-
-        if (this.hasStopped){
-            this.medication.dateEnded = this.endDate;
-        }
-
         this.medicationService.save(this.medication, this.patient.id).then(r => {
 
 

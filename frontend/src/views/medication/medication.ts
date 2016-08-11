@@ -7,6 +7,7 @@ import {Materialize} from "../materialize";
 import {Router} from "aurelia-router";
 import {stateful} from "../../models/state/state-decorator";
 import {StateProvider} from "../../models/state/state-provider";
+import {MedicationOrder} from "../../models/medication/medication-order";
 
 declare var document;
 declare var $;
@@ -21,7 +22,7 @@ export class Medication extends Materialize{
     private router: Router;
     private sp: StateProvider;
 
-    medications: Array<any>;
+    medications: Array<MedicationOrder>;
     loading: boolean = false;
 
     @stateful(false)
@@ -114,9 +115,9 @@ export class Medication extends Materialize{
 
     }
 
-    edit(selection: any){
+    edit(selection: MedicationOrder){
 
-        this.medicationService.selectedMedication = selection;
+        this.medicationService.selectedMedication = selection.copy();
         this.router.navigateToRoute('medicationEdit',{"id":selection.id});
 
     }

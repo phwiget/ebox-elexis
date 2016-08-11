@@ -1,5 +1,7 @@
 import {autoinject} from "aurelia-dependency-injection";
 import {HttpService} from "../http/http-service";
+import {MedicationOrder} from "../../models/medication/medication-order";
+
 
 
 declare var jsRoutes: any;
@@ -12,7 +14,7 @@ export class MedicationService{
     private medicationKey: string = "medications_";
     private historyKey: string = "history_";
 
-    selectedMedication: any;
+    selectedMedication: MedicationOrder;
     
     constructor(httpService: HttpService){
         this.httpService = httpService;
@@ -22,7 +24,7 @@ export class MedicationService{
         return (history) ?  this.historyKey + patientId: this.medicationKey + patientId;
     }
 
-    list(patientId: string, history: boolean = false): Promise<any>{
+    list(patientId: string, history: boolean = false): Promise<Array<MedicationOrder>>{
 
         let key = this.key(patientId,history);
 
@@ -30,14 +32,13 @@ export class MedicationService{
 
         return this.httpService.get(jsRoutes.controllers.medication.MedicationCtrl.list(patientId, history).url).then(r => {
 
-            r.response.map((m) => {
-                this.concatInstructions(m);
-                this.extractPosology(m);
+            let medications = r.response.map((m) => {
+                return new MedicationOrder(m);
             });
             
-            this.cache[key] = r.response;
+            this.cache[key] = medications;
 
-            return Promise.resolve(r.response);
+            return Promise.resolve(medications);
 
         },e => {
 
@@ -51,9 +52,7 @@ export class MedicationService{
 
         return this.httpService.get(jsRoutes.controllers.medication.MedicationCtrl.detail(id).url).then(r => {
 
-            this.extractPosology(r.response);
-
-            return Promise.resolve(r.response);
+            return Promise.resolve(new MedicationOrder(r.response));
 
         },e => {
 
@@ -63,12 +62,14 @@ export class MedicationService{
 
     }
 
-    save(medicationOrder: any, patientId: string): Promise<any>{
+    save(medicationOrder: MedicationOrder, patientId: string): Promise<any>{
 
         let keyNonHistory =  this.key(patientId,false);
         let keyHistory = this.key(patientId, true);
 
         var self = this;
+
+        medicationOrder.update();
 
         return this.httpService.post(jsRoutes.controllers.medication.MedicationCtrl.save().url, medicationOrder).then(r => {
 
@@ -97,59 +98,59 @@ export class MedicationService{
 
     }
 
-    concatInstructions(medication: any){
-
-        if (medication.additionalInstructions == null && medication.instructions != null){
-            medication.dosage = medication.instructions;
-        } else if (medication.additionalInstructions != null && medication.instructions != null) {
-            medication.dosage = medication.instructions + ", " + medication.additionalInstructions;
-        }
-
-        return medication;
-    }
-
-    extractPosology(medication: any){
-
-        var pattern = /^([0-9.]{1,5})([-])([0-9.]{1,5})([-])([0-9.]{1,5})([-])([0-9.]{0,5})([0-9])$/;
-        var str = pattern.exec(medication.instructions);
-
-        if (str !== null){
-
-            medication.posology = {};
-
-            str[0].split("-").forEach((d,i) => {
-
-                var dosage = parseFloat(d);
-                switch(i){
-                    case 0:
-                        medication.posology.morning = dosage;
-                        break;
-                    case 1:
-                        medication.posology.midday = dosage;
-                        break;
-                    case 2:
-                        medication.posology.evening = dosage;
-                        break;
-                    case 3:
-                        medication.posology.night = dosage;
-                }
-
-            });
-        }
-
-        return medication;
-    }
-
-    addInstructions(m: any){
-
-        let keys = ["morning", "midday", "evening", "night"];
-
-        m.instructions = keys.map(function (key) {
-
-            return (m.posology[key] == null) ? "0" : m.posology[key].toString();
-
-        }).join("-");
-
-    }
+    // concatInstructions(medication: any){
+    //
+    //     if (medication.additionalInstructions == null && medication.instructions != null){
+    //         medication.dosage = medication.instructions;
+    //     } else if (medication.additionalInstructions != null && medication.instructions != null) {
+    //         medication.dosage = medication.instructions + ", " + medication.additionalInstructions;
+    //     }
+    //
+    //     return medication;
+    // }
+    //
+    // extractPosology(medication: any){
+    //
+    //     var pattern = /^([0-9.]{1,5})([-])([0-9.]{1,5})([-])([0-9.]{1,5})([-])([0-9.]{0,5})([0-9])$/;
+    //     var str = pattern.exec(medication.instructions);
+    //
+    //     if (str !== null){
+    //
+    //         medication.posology = {};
+    //
+    //         str[0].split("-").forEach((d,i) => {
+    //
+    //             var dosage = parseFloat(d);
+    //             switch(i){
+    //                 case 0:
+    //                     medication.posology.morning = dosage;
+    //                     break;
+    //                 case 1:
+    //                     medication.posology.midday = dosage;
+    //                     break;
+    //                 case 2:
+    //                     medication.posology.evening = dosage;
+    //                     break;
+    //                 case 3:
+    //                     medication.posology.night = dosage;
+    //             }
+    //
+    //         });
+    //     }
+    //
+    //     return medication;
+    // }
+    //
+    // addInstructions(m: any){
+    //
+    //     let keys = ["morning", "midday", "evening", "night"];
+    //
+    //     m.instructions = keys.map(function (key) {
+    //
+    //         return (m.posology[key] == null) ? "0" : m.posology[key].toString();
+    //
+    //     }).join("-");
+    //
+    // }
 
 }

@@ -28,12 +28,12 @@
 
                 <div class="row">
 
-                    <div show.bind="!showFreetext">
+                    <div show.bind="!medication.showFreetext">
                         <div class="col-md-2">
 
                             <div class="form-group ${isNumeric(medication.posology.morning) ? '' : 'with-error'}">
                                 <label class="control-label">Dosis</label>
-                                <input type="text" placeholder="Morgen" class="form-control"  focus-me.bind="!showFreetext" select-all
+                                <input type="text" placeholder="Morgen" class="form-control"  focus-me.bind="!medication.showFreetext" select-all
                                 value.bind="medication.posology.morning"/>
                             </div>
 
@@ -69,7 +69,7 @@
                         </div>
 
                     </div>
-                    <div show.bind="showFreetext">
+                    <div show.bind="medication.showFreetext">
                         <div class="col-lg-8 col-md-12">
 
                             <div class="form-group">
@@ -85,9 +85,9 @@
                         <br>
                         <br>
 
-                        <button class="btn btn-info btn-sm" click.delegate="showFreetext=!showFreetext" tabindex="-1">
+                        <button class="btn btn-info btn-sm" click.delegate="medication.showFreetext=!medication.showFreetext" tabindex="-1">
                             Freitext
-                            &nbsp;<i class="material-icons" show.bind="showFreetext">mode_edit</i>
+                            &nbsp;<i class="material-icons" show.bind="medication.showFreetext">mode_edit</i>
                         </button>
 
 
@@ -136,8 +136,8 @@
 
                         <button class="btn btn-warning btn-block" click.delegate="onStop()" tabindex="-1">Stop &nbsp;
 
-                                <i class="material-icons" show.bind="!hasStopped">pan_tool</i>
-                                <i class="material-icons" show.bind="hasStopped">done</i>
+                                <i class="material-icons" show.bind="!medication.hasBeenStopped">pan_tool</i>
+                                <i class="material-icons" show.bind="medication.hasBeenStopped">done</i>
 
 
                         </button>
@@ -150,7 +150,7 @@
                                         <label class="control-label">Stopp-Datum</label>
                                         <input  class="datepicker form-control" type="text" date-picker="
                                             format: dd.mm.yyyy;
-                                            model.two-way:endDate"
+                                            model.two-way:medication.endDate"
                                              />
                                     </div>
 
