@@ -8,16 +8,14 @@ import play.filters.csrf.{CSRF, CSRFAddToken}
 
 class LoginCtrlSpec extends PlaySpecification with Sessions with RequestHelpers{
 
-  val signer = application.injector.instanceOf[CSRFTokenSigner]
 
   "Login Controller" should {
 
     "login a user" in {
 
-      val token = signer.generateSignedToken
       val url = controllers.login.routes.LoginCtrl.login().url
 
-      val request = route(application, FakeRequest(POST,url,CSRFHeader(token),Json.obj("username"->"abc","password"-> "ce")).withCookies(CSRFCookie(token))).get
+      val request = route(application, FakeRequest(POST,url,CSRFHeader,Json.obj("username"->"abc","password"-> "ce")).withCookies(CSRFCookie)).get
 
        status(request) must equalTo(200)
 
