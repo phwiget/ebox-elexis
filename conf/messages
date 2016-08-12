@@ -41,6 +41,23 @@ medication.modal.cancel = Schliessen
 
 ##Medication - Edit
 medication.edit.title = Medikation bearbeiten
+medication.edit.dosage = Dosierung
+medication.edit.dosage.morning = Morgen
+medication.edit.dosage.midday = Mittag
+medication.edit.dosage.evening = Abend
+medication.edit.dosage.night = Nacht
+medication.edit.freetext = Freitext
+medication.edit.instruction = Einnahmevorschrift
+medication.edit.additionalInstruction = Zusatzbemerkung
+medication.edit.reserve = Reservemedikation
+medication.edit.fix = Fixmedikation
+medication.edit.stop = Stopp
+medication.edit.stop.date = Stopp-Datum
+medication.edit.stop.reason = Grund des Stopps
+medication.edit.stop.incompatibility = Unverträglichkeit
+medication.edit.delete = Löschen
+medication.edit.save = Speichern
+medication.edit.save.success = Die Medikation wurde gespeichert
 
 #Agenda
 agenda.title = Agenda

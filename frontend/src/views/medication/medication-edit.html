@@ -32,8 +32,8 @@
                         <div class="col-md-2">
 
                             <div class="form-group ${isNumeric(medication.posology.morning) ? '' : 'with-error'}">
-                                <label class="control-label">Dosis</label>
-                                <input type="text" placeholder="Morgen" class="form-control"  focus-me.bind="!medication.showFreetext" select-all
+                                <label class="control-label">@Messages('medication.edit.dosage')</label>
+                                <input type="text" placeholder="@Messages('medication.edit.dosage.morning')" class="form-control"  focus-me.bind="!medication.showFreetext" select-all
                                 value.bind="medication.posology.morning"/>
                             </div>
 
@@ -43,7 +43,7 @@
 
                             <div class="form-group ${isNumeric(medication.posology.midday) ? '' : 'with-error'}">
                                 <label class="control-label">&nbsp;</label>
-                                <input type="text"  placeholder="Mittag" class="form-control" select-all
+                                <input type="text"  placeholder="@Messages('medication.edit.dosage.midday')" class="form-control" select-all
                                        value.bind="medication.posology.midday"/>
                             </div>
 
@@ -52,7 +52,7 @@
 
                             <div class="form-group ${isNumeric(medication.posology.evening) ? '' : 'with-error'}">
                                 <label class="control-label">&nbsp;</label>
-                                <input type="text" placeholder="Abend" class="form-control" select-all
+                                <input type="text" placeholder="@Messages('medication.edit.dosage.evening')" class="form-control" select-all
                                        value.bind="medication.posology.evening"/>
                             </div>
 
@@ -61,7 +61,7 @@
 
                             <div class="form-group ${isNumeric(medication.posology.night) ? '' : 'with-error'}">
                                 <label class="control-label">&nbsp;</label>
-                                <input type="text" placeholder="Nacht" class="form-control" select-all
+                                <input type="text" placeholder="@Messages('medication.edit.dosage.night')" class="form-control" select-all
                                        value.bind="medication.posology.night" />
 
                             </div>
@@ -73,9 +73,9 @@
                         <div class="col-lg-8 col-md-12">
 
                             <div class="form-group">
-                                <label class="control-label">Dosis</label>
+                                <label class="control-label">@Messages('medication.edit.dosage')</label>
 
-                                <input type="text" value="" placeholder="Regular" class="form-control" focus-me.bind="showFreetext" value.bind="medication.instructions" />
+                                <input type="text" value="" placeholder="@Messages('medication.edit.dosage')" class="form-control" focus-me.bind="showFreetext" value.bind="medication.instructions" />
                             </div>
 
                         </div>
@@ -86,7 +86,7 @@
                         <br>
 
                         <button class="btn btn-info btn-sm" click.delegate="medication.showFreetext=!medication.showFreetext" tabindex="-1">
-                            Freitext
+                            @Messages('medication.edit.freetext')
                             &nbsp;<i class="material-icons" show.bind="medication.showFreetext">mode_edit</i>
                         </button>
 
@@ -98,8 +98,8 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Einnahmevorschrift</label>
-                            <input type="text" value="" placeholder="Einnahmevorschrift" class="form-control"  value.bind="medication.notes"/>
+                            <label class="control-label">@Messages('medication.edit.instruction')</label>
+                            <input type="text" value="" placeholder="@Messages('medication.edit.instruction')" class="form-control"  value.bind="medication.notes"/>
                         </div>
                     </div>
 
@@ -109,8 +109,8 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Zusatzbemerkung</label>
-                            <input type="text" value="" placeholder="Zusatzbemerkung" class="form-control"  value.bind="medication.additionalInstructions"/>
+                            <label class="control-label">@Messages('medication.edit.additionalInstruction')</label>
+                            <input type="text" value="" placeholder="@Messages('medication.edit.additionalInstruction')" class="form-control"  value.bind="medication.additionalInstructions"/>
                         </div>
                     </div>
 
@@ -128,13 +128,13 @@
                         <div class="togglebutton strong">
                             <label>
                                     <input type="checkbox" checked.one-way="!medication.isReserve" change.delegate="onTypeChanged()" tabindex="-1">
-                                ${medication.isReserve ? 'Reservemedikation' : 'Fixmedikation'}
+                                ${medication.isReserve ? '@Messages('medication.edit.reserve')' : '@Messages('medication.edit.fix')'}
                             </label>
                         </div>
                     </div>
                     <div class="col-md-6">
 
-                        <button class="btn btn-warning btn-block" click.delegate="onStop()" tabindex="-1">Stop &nbsp;
+                        <button class="btn btn-warning btn-block" click.delegate="onStop()" tabindex="-1">@Messages('medication.edit.stop') &nbsp;
 
                                 <i class="material-icons" show.bind="!medication.hasBeenStopped">pan_tool</i>
                                 <i class="material-icons" show.bind="medication.hasBeenStopped">done</i>
@@ -147,7 +147,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Stopp-Datum</label>
+                                        <label class="control-label">@Messages('medication.edit.stop.date')</label>
                                         <input  class="datepicker form-control" type="text" date-picker="
                                             format: dd.mm.yyyy;
                                             model.two-way:medication.endDate"
@@ -158,12 +158,12 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Grund des Stopps</label>
+                                        <label class="control-label">@Messages('medication.edit.stop.reason')</label>
                                         <input type="text" value="" placeholder="" class="form-control"  value.bind="medication.reasonEnded"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label">Unverträglichkeit</label>
-                                        <input type="text" value="" placeholder="Unverträglichkeit" class="form-control"  value.bind="medication.incompatibility"/>
+                                        <label class="control-label">@Messages('medication.edit.stop.incompatibility')</label>
+                                        <input type="text" value="" placeholder="" class="form-control"  value.bind="medication.incompatibility"/>
                                     </div>
                                 </div>
 
@@ -171,7 +171,7 @@
                             </div>
 
                         </div>
-                        <button class="btn btn-danger btn-block">Löschen &nbsp;<i class="material-icons">close</i></button>
+                        <button class="btn btn-danger btn-block">@Messages('medication.edit.delete') &nbsp;<i class="material-icons">close</i></button>
 
                     </div>
 
@@ -180,7 +180,8 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <button class="btn btn-success" dot-button.bind="saving" click.delegate="save()">Speichern </button>
+                <button class="btn btn-success" dot-button.bind="saving" click.delegate="save()" disabled.bind="validate">@Messages('medication.edit.save') </button>
+                <p class="text-success fade-in ${success ? 'is-visible' : ''}" >@Messages('medication.edit.save.success')</p>
 
             </div>
         </div>

@@ -17,6 +17,8 @@ export class MedicationEdit extends Materialize{
 
     medication: MedicationOrder;
     saving: boolean = false;
+    success: boolean = false;
+    errors: Array<any>;
 
 
     constructor(ms: MedicationService, ps: PatientService){
@@ -70,15 +72,28 @@ export class MedicationEdit extends Materialize{
 
         var self = this;
 
+        this.success = false;
         this.saving = true;
+
         this.medicationService.save(this.medication, this.patient.id).then(r => {
 
+            this.success = true;
+
+        }, e => {
+
+            this.errors = e;
 
         }).then(() => {
             setTimeout(() => {
                 self.saving = false;
             },1000)
         });
+
+    }
+
+    get validate(){
+
+        return (this.medication.showFreetext) ? false : !(this.isNumeric(this.medication.posology.morning) && this.isNumeric(this.medication.posology.midday) && this.isNumeric(this.medication.posology.evening) && this.isNumeric(this.medication.posology.night))
 
     }
     
