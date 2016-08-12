@@ -1,6 +1,6 @@
 package models.medication
 
-import models.medication.dao.MedicationDAO
+import models.medication.dal.MedicationDAO
 import models.request.UserRequest
 import org.specs2.mock.Mockito
 import play.api.mvc.AnyContent

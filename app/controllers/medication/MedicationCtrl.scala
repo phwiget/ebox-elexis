@@ -3,12 +3,12 @@ package controllers.medication
 import com.google.inject.{Inject, Singleton}
 import controllers.Errors
 import controllers.actions.Actions
-import models.medication.MedicationService
+import models.medication.{Formats, MedicationService}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc.Controller
-import models.medication.dao.Formats.medicationOrderWrites
-import models.medication.dao.MedicationDAO
+import Formats.medicationOrderWrites
+import models.medication.dal.MedicationDAO
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

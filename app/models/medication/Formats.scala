@@ -1,11 +1,10 @@
-package models.medication.dao
+package models.medication
 
-import models.fhir.converters.Formats._
-import models.medication.{DosageInstruction, MedicationOrder}
-import play.api.libs.json.Json.JsValueWrapper
 import play.api.libs.json._
 
 object Formats {
+
+  import models.fhir.converters.Formats._
 
   implicit val dosageInstructionFormat = Json.format[DosageInstruction]
   implicit val medicationOrderFormat = Json.format[MedicationOrder]

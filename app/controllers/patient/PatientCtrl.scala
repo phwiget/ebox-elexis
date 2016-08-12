@@ -2,10 +2,11 @@ package controllers.patient
 
 import com.google.inject.{Inject, Singleton}
 import controllers.actions.Actions
-import models.patient.dao.{Formats, PatientDAO}
+import models.patient.dal.PatientDAO
 import play.api.libs.json.Json
 import play.api.mvc.Controller
 import controllers.Errors
+import models.patient.Formats
 import play.api.i18n.{I18nSupport, MessagesApi}
 
 import scala.concurrent.ExecutionContext.Implicits.global

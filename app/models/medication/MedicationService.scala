@@ -1,7 +1,7 @@
 package models.medication
 
 import com.google.inject.Inject
-import models.medication.dao.MedicationDAO
+import models.medication.dal.MedicationDAO
 import models.request.UserRequest
 import play.api.mvc.AnyContent
 

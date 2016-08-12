@@ -1,9 +1,8 @@
-package models.patient.dao
+package models.patient
 
-import models.patient.Patient
+import models.person.converters.Converters._
 
 import scala.xml.NodeSeq
-import models.person.converters.Converters._
 
 object Converters {
 

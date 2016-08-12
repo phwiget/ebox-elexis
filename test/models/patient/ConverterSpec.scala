@@ -1,7 +1,7 @@
-package models.patient.dao
+package models.patient
 
-import Converters._
 import play.api.test.PlaySpecification
+import Converters._
 
 class ConverterSpec extends PlaySpecification with Samples{
 

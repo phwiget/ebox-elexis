@@ -1,8 +1,8 @@
-package models.patient.dao
+package models.patient.dal
 
 import com.google.inject.Inject
 import models.Endpoints
-import models.patient.Patient
+import models.patient.{Converters, Patient}
 import models.request.UserRequest
 import play.api.http.HttpVerbs._
 import play.api.mvc.AnyContent

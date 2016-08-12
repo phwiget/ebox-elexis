@@ -1,12 +1,10 @@
-package models.medication.dao
+package models.medication
 
 import models.fhir.converters.Converters._
-import models.medication.{DosageInstruction, MedicationOrder}
-import org.joda.time.DateTime
-import org.joda.time.format.{DateTimeFormat, ISODateTimeFormat}
+import models.medication.Constants._
+import org.joda.time.format.ISODateTimeFormat
 
 import scala.xml.NodeSeq
-import models.medication.Constants._
 
 object Converters {
 

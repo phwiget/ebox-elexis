@@ -1,4 +1,4 @@
-package models.medication.dao
+package models.medication
 
 trait Samples {
 

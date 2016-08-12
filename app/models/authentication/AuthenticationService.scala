@@ -62,7 +62,7 @@ class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, 
 
   /**
     * Find a user in the cache<br>
-    *   This function is used to check permissions on a per-request basis
+    * This function is used to check permissions on a per-request basis
     * @param username Username
     * @return
     */

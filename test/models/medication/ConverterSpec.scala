@@ -1,9 +1,8 @@
-package models.medication.dao
+package models.medication
 
+import org.joda.time.DateTime
 import play.api.test.PlaySpecification
 import Converters._
-import models.medication.Constants
-import org.joda.time.DateTime
 
 class ConverterSpec extends PlaySpecification with Samples{
 

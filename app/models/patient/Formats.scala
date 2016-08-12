@@ -1,10 +1,10 @@
-package models.patient.dao
+package models.patient
 
-import models.patient.Patient
 import play.api.libs.json.Json
-import models.person.converters.Formats._
 
 object Formats {
+
+  import models.person.converters.Formats._
 
   implicit val patientFormat = Json.format[Patient]
 

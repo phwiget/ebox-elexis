@@ -1,8 +1,8 @@
-package models.medication.dao
+package models.medication.dal
 
 import com.google.inject.Inject
 import models.Endpoints
-import models.medication.MedicationOrder
+import models.medication.{Converters, MedicationOrder}
 import models.request.UserRequest
 import utils.WebService
 import play.api.http.HttpVerbs._

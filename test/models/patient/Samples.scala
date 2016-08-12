@@ -1,4 +1,4 @@
-package models.patient.dao
+package models.patient
 
 trait Samples {
 
