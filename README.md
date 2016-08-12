@@ -32,3 +32,6 @@ eBox-Elexis is intentend to provide remote access to the ebox-elexis.
 ##Development Backend
 * `activtor ~run` or
 * `activator ~compile` etc
+
+##Elexis-Server
+<https://github.com/elexis/elexis-server>
