@@ -1,6 +1,6 @@
 package controllers
 
-import java.io.{ByteArrayInputStream, FileInputStream, InputStream}
+import java.io.{ByteArrayInputStream, FileInputStream}
 import java.util.zip.GZIPInputStream
 
 import controllers.Assets.Asset
@@ -11,7 +11,6 @@ import play.api.{Configuration, Environment, Mode}
 import play.api.test.{FakeRequest, PlaySpecification}
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.io.Source
 
 class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{sequential
 
@@ -198,7 +197,7 @@ class ResourcesSpec extends PlaySpecification with SingleInstance with Mockito{s
     "change the language" in {
 
       val request1 = FakeRequest("GET","/language/set").withHeaders(Seq(("Referer","/home")):_*)
-      val result1 = await(controller.setLanguage("de")(request1))
+      await(controller.setLanguage("de")(request1))
 
       success
 

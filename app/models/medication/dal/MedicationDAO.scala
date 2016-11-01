@@ -14,15 +14,23 @@ class MedicationDAO @Inject()(webService: WebService, endpoints: Endpoints) {
 
   import Converters._
 
-  def list(patientId: String)(implicit request: UserRequest[AnyContent]): Future[scala.Either[String, scala.Seq[MedicationOrder]]] = {
+  def list(patientId: String)(implicit request: UserRequest[AnyContent]): Future[Either[String, Seq[MedicationOrder]]] = {
 
     webService.request[Seq[MedicationOrder]](endpoints.Medication.list(patientId),GET)
 
   }
 
-  def detail(id: String)(implicit request: UserRequest[AnyContent]): Future[scala.Either[String, MedicationOrder]] = {
+  def detail(id: String)(implicit request: UserRequest[AnyContent]): Future[Either[String, MedicationOrder]] = {
 
     webService.request[MedicationOrder](endpoints.Medication.detail(id),GET)
+
+  }
+
+  def update(medicationOrder: MedicationOrder)(implicit request: UserRequest[AnyContent]): Future[Either[String, String]] = {
+
+
+    webService
+    ???
 
   }
 

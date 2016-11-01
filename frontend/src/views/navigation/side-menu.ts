@@ -31,10 +31,10 @@ export class SideMenu{
         var hamburger = this.constants.hambugerMenuClass;
         var api = $(navbarMenu).data( "mmenu" );
 
-        var validateSwipe = function(target){
+        var preventSwipe = function(target){
 
             var el = $(target);
-            return el.hasClass('table-responsive') || el.hasClass('loader') || target.tagName === "TR" || target.tagName === "TD" || target.tagName === "TBODY";
+            return el.parents('.table-responsive').length > 0;
 
         };
 
@@ -66,7 +66,7 @@ export class SideMenu{
             $(document.body).on("swiperight",function(event){
 
 
-                if (!validateSwipe(event.target)){
+                if (!preventSwipe(event.target)){
                     if (!$(hamburger).hasClass("is-active")){api.open();}
                 }
 
@@ -76,7 +76,7 @@ export class SideMenu{
             $(document.body).on("swipeleft",function(event){
 
 
-                if (!validateSwipe(event.target)) {
+                if (!preventSwipe(event.target)) {
                     if ($(hamburger).hasClass("is-active")) {
                         api.close();
                     }

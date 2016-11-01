@@ -30,8 +30,14 @@ eBox-Elexis is intentend to provide remote access to the ebox-elexis.
 * May disable caching in browser
 
 ##Development Backend
-* `activtor ~run` or
+* `activator ~run` or
 * `activator ~compile` etc
+
+##Both together
+* `activator run` or
+* `gulp watch` (in /frontend)
+* Access localhost:3000 and enjoy auto-refresh
+  * Chrome is much faster at reloading than Firefox
 
 ##Elexis-Server
 <https://github.com/elexis/elexis-server>

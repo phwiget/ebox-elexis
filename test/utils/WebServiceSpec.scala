@@ -19,6 +19,9 @@ class WebServiceSpec extends PlaySpecification with Mockito{
     case (GET, "/fail") => Action { Results.BadRequest }
     case (POST, "/test") => Action { Results.Ok(<test value="Test">test</test>) }
     case (GET, "/abc") =>   Action { val x = 1/0; Results.Ok(x.toString) }
+    case (PUT, "/put/something") => Action{Results.Created.withHeaders((CONTENT_LOCATION, "http://localhost/xyz"))}
+    case (PUT, "/put/wrongly") => Action{Results.Created}
+
   }
 
   val service = new WebService(ws)
@@ -36,6 +39,8 @@ class WebServiceSpec extends PlaySpecification with Mockito{
       val r2 = await(service.request("/fail",GET)(converter,request))
       val r3 = await(service.request("/test",POST, Some(Json.obj("bac"-> "test")))(converter,request))
       val r4 = await(service.request("/abc", GET)(converter,request))
+      val r5 = await(service.request("/put/something", PUT)(converter,request))
+      val r6 = await(service.request("/put/wrongly", PUT)(converter,request))
 
       r1.isRight must equalTo(true)
       r1.right.get must equalTo("test")
@@ -48,6 +53,12 @@ class WebServiceSpec extends PlaySpecification with Mockito{
 
       r4.isLeft must equalTo(true)
       r4.left.get must equalTo("error.server.unavailable")
+
+      r5.isRight must equalTo(true)
+      r5.right.get must equalTo("http://localhost/xyz")
+
+      r6.isRight must equalTo(true)
+      r6.right.get must equalTo("")
     }
 
   }

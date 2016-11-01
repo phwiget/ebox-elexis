@@ -10,7 +10,8 @@ export class HttpService{
         this.client =  new HttpClient().configure(hc => {
 
             hc.withHeader('Content-Type', 'application/json');
-
+            hc.withHeader('Accept', 'application/json, text/plain, */*');
+            
         });
 
     }

@@ -6,6 +6,7 @@ import play.api.http.Status
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.http.HttpVerbs._
+import play.api.http.HeaderNames._
 import play.api.mvc.AnyContent
 
 import scala.concurrent.Future
@@ -56,7 +57,8 @@ class WebService @Inject()(wSClient: WSClient) {
 
     response.map(r =>
       r.status match{
-        case Status.OK => Right(r.xml: T)
+        case Status.OK => Right(converter(r.xml))
+        case Status.CREATED => Right(converter(<contentLocation>{r.header(CONTENT_LOCATION).getOrElse("")}</contentLocation>))
         case _ => Left("error.server.status." + r.status.toString)
 
       }) recover {case t: Throwable => Left("error.server.unavailable")}
