@@ -3,7 +3,7 @@ module.exports = {
     "dist/app-build": {
       "includes": [
         "[**/*.js]",
-        // "**/*.html!text",
+        //"**/*.html!text",
         "**/*.css!text"
       ],
       "options": {
@@ -17,10 +17,7 @@ module.exports = {
       "includes": [
         "aurelia-framework",
         "aurelia-bootstrapper",
-        // "aurelia-fetch-client",
-        "aurelia-http-client",
         "aurelia-router",
-        // "aurelia-animator-css",
         "aurelia-templating-binding",
         "aurelia-polyfills",
         "aurelia-templating-resources",
@@ -28,23 +25,24 @@ module.exports = {
         "aurelia-loader-default",
         "aurelia-history-browser",
         "aurelia-logging-console",
+        "aurelia-http-client",
+        "text",
         "bootstrap",
         "bootstrap/css/bootstrap.css!text",
-        "fetch",
         "jquery",
         "jquery-mobile",
+        "github:custom/mmenu/dist/css/jquery.mmenu.custom.css!text",
+        "github:custom/mmenu/dist/css/hamburger.css!text",
+        "github:custom/creative_tim/css/material-all.css!text",
         "material",
         "material-kit",
         "bootstrap-datepicker",
         "mmenu",
-        "typeahead",
-        "github:custom/creative_tim/css/material-all.css!text",
-        "github:custom/mmenu/dist/css/hamburger.css!text",
-        "github:custom/mmenu/dist/css/jquery.mmenu.custom.css!text"
+        "typeahead.js"
       ],
       "options": {
         "inject": true,
-        "minify": false,
+        "minify": true,
         "depCache": true,
         "rev": true
       }

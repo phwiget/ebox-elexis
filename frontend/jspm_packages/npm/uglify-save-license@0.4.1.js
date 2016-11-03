@@ -1,1 +1,0 @@
-module.exports = require("npm:uglify-save-license@0.4.1/uglify-save-license.js");

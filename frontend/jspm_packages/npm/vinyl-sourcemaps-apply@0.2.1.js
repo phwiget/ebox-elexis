@@ -1,1 +1,0 @@
-module.exports = require("npm:vinyl-sourcemaps-apply@0.2.1/index.js");
