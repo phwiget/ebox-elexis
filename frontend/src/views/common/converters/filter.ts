@@ -13,27 +13,21 @@ export class FilterValueConverter {
 
     private filterObject(obj: Object, expression: string): boolean{
 
-        var match;
+        return Object.keys(obj).map(k => {
 
-        for (var i in obj){
+            var child = obj[k];
 
-            var child;
+            if (child == null) return false;
+            else if (typeof  child === 'object') return this.filterObject(child,expression);
+            else if (child.constructor === Array) return this.filterArray(child, expression).length > 0;
+            else return child.toString().toLowerCase().indexOf(expression) > -1;
+                        
+        }).filter(r => r).length > 0;
 
-            obj.hasOwnProperty(i) ? child = obj[i] : child = obj;
-
-            (child != null && typeof child === 'object') ? match = this.filterObject(child,expression) :
-
-                (Object.prototype.toString.call(child) === '[object Array]' ) ? match = this.filterArray(child, expression) :
-
-                    (child == null) ? match= false: match = child.toString().toLowerCase().indexOf(expression) > -1;
-
-            if (match){break;}
-        }
-
-        return match;
     }
 
-    private filterArray(array, expression: string) {
+
+    private filterArray(array, expression: string): Array<any> {
 
         return array.filter(el => {return this.filterObject(el, expression);});
 

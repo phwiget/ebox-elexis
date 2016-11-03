@@ -10,18 +10,16 @@ declare var mmenu;
 @autoinject
 export class SideMenu{
 
-    private constants: Constants;
-    private router: Router;
+
     private api: any = undefined;
     menu: any;
     patientService: PatientService;
     scope: any;
 
-    constructor(constants: Constants, router: Router, patientService: PatientService){
-        this.constants = constants;
-        this.router = router;
-        this.patientService = patientService;
+    constructor(private constants: Constants, private router: Router, patientService: PatientService){
+
         this.scope = this;
+        this.patientService = patientService
     }
 
     private addEventListeners(viewPortWidth: number){
