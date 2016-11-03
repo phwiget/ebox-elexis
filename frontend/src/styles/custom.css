@@ -45,6 +45,7 @@ body {
 
 .nav-pills > li {
     padding: 5px;
+    min-width: 250px;
 }
 .label-patient{
     text-transform: none;

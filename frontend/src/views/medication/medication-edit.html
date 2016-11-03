@@ -33,7 +33,7 @@
 
                             <div class="form-group ${isNumeric(medication.posology.morning) ? '' : 'with-error'}">
                                 <label class="control-label">@Messages('medication.edit.dosage')</label>
-                                <input type="text" placeholder="@Messages('medication.edit.dosage.morning')" class="form-control"  focus-me.bind="!medication.showFreetext" select-all
+                                <input type="text" placeholder="@Messages('medication.edit.dosage.morning')" class="form-control"  focus-me.bind="viewPort > 768  && !medication.showFreetext" select-all
                                 value.bind="medication.posology.morning"/>
                             </div>
 
@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <label class="control-label">@Messages('medication.edit.dosage')</label>
 
-                                <input type="text" value="" placeholder="@Messages('medication.edit.dosage')" class="form-control" focus-me.bind="showFreetext" value.bind="medication.instructions" />
+                                <input type="text" value="" placeholder="@Messages('medication.edit.dosage')" class="form-control"  value.bind="medication.instructions" />
                             </div>
 
                         </div>

@@ -21,10 +21,6 @@ export class DatePickerCustomAttribute{
         var self = this;
         this.element = <HTMLElement>element;
         
-        this.element.onblur = () =>{
-            self.datePicker.datepicker('hide');
-        }
-
     }
 
     attached(){
@@ -40,7 +36,6 @@ export class DatePickerCustomAttribute{
 
             self.model = ev.date.getTime();
             self.onDateChanged(ev.date,self.scope);
-            if (self.close) self.datePicker.datepicker('hide');
 
         });
 
