@@ -2,7 +2,7 @@ package models.medication.dal
 
 import com.google.inject.Inject
 import models.Endpoints
-import models.medication.{Converters, MedicationOrder}
+import models.medication.{XmlReads, MedicationOrder}
 import models.request.UserRequest
 import utils.WebService
 import play.api.http.HttpVerbs._
@@ -12,7 +12,7 @@ import scala.concurrent.Future
 
 class MedicationDAO @Inject()(webService: WebService, endpoints: Endpoints) {
 
-  import Converters._
+  import XmlReads._
 
   def list(patientId: String)(implicit request: UserRequest[AnyContent]): Future[Either[String, Seq[MedicationOrder]]] = {
 
@@ -28,13 +28,9 @@ class MedicationDAO @Inject()(webService: WebService, endpoints: Endpoints) {
 
   def update(medicationOrder: MedicationOrder)(implicit request: UserRequest[AnyContent]): Future[Either[String, String]] = {
 
-
-    webService
-    ???
+    implicit val converter = models.fhir.formats.XmlReads.contentLocationReads
+    webService.request[String](endpoints.Medication.update(medicationOrder), PUT, Some(medicationOrder))
 
   }
-
-
-
 
 }

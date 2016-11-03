@@ -1,6 +1,7 @@
 package models.medication
 
 import models.fhir.{Annotation, CodeableConcept, Event}
+import models.patient.Patient
 import org.joda.time.DateTime
 import org.specs2.mock.Mockito
 import play.api.test.PlaySpecification
@@ -12,8 +13,8 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
 
     "tell if its part of the history" in {
 
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN", None,Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
-      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"),Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN", None, "abc", Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"), "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.isHistory must equalTo(false)
       order2.isHistory must equalTo(true)
@@ -22,8 +23,8 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
 
     "tell if its a reserve medication" in {
 
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN", None,Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
-      val order2 = MedicationOrder("", Seq.empty,"RESERVE_MEDICATION",None,Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN", None, "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order2 = MedicationOrder("", Seq.empty,"RESERVE_MEDICATION",None, "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.isReserve must equalTo(false)
       order2.isReserve must equalTo(true)
@@ -34,7 +35,7 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
     "return the aggregated note" in {
 
       val annotation = Annotation(None,None,"Test")
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None,Seq(annotation),mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq(annotation),mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.note must equalTo("Test")
 
@@ -42,8 +43,8 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
     "return the date written" in {
 
       val event = Event("active", new DateTime(2016,3,2,1,0,0),None,None)
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None,Seq.empty,mock[CodeableConcept], Seq.empty, Seq(event))
-      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"),Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq(event))
+      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"), "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.dateWritten must equalTo(Some(new DateTime(2016,3,2,1,0,0)))
       order2.dateWritten must equalTo(None)
@@ -53,8 +54,8 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
     "return the date ended" in {
 
       val event = Event("stopped", new DateTime(2016,3,2,1,0,0),None,None)
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None,Seq.empty,mock[CodeableConcept], Seq.empty, Seq(event))
-      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"),Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq(event))
+      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"), "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.dateEnded must equalTo(Some(new DateTime(2016,3,2,1,0,0)))
       order2.dateEnded must equalTo(None)
@@ -64,8 +65,8 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
     "return the aggregated reason ended" in {
 
       val event = Event("stopped", new DateTime(2016,3,2,1,0,0),None,Some(CodeableConcept(Seq.empty,Some("Reason"))))
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None,Seq.empty,mock[CodeableConcept], Seq.empty, Seq(event))
-      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"),Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq(event))
+      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"), "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.reasonEnded must equalTo(Some("Reason"))
       order2.reasonEnded must equalTo(None)
@@ -75,8 +76,8 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
     "return the aggregated instructions" in {
 
       val instructions = DosageInstruction(Some("1-0-1-0"))
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None,Seq.empty,mock[CodeableConcept], Seq(instructions), Seq.empty)
-      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"),Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq.empty,mock[CodeableConcept], Seq(instructions), Seq.empty)
+      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"), "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.instructions must equalTo("1-0-1-0")
       order2.instructions must equalTo("")
@@ -85,13 +86,32 @@ class MedicationOrderSpec extends PlaySpecification with Mockito{
     "return the aggregated additional instructions" in {
 
       val instructions = DosageInstruction(Some("1-0-1-0"),Some(CodeableConcept(Seq.empty,Some("Addition"))))
-      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None,Seq.empty,mock[CodeableConcept], Seq(instructions), Seq.empty)
-      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"),Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq.empty,mock[CodeableConcept], Seq(instructions), Seq.empty)
+      val order2 = MedicationOrder("", Seq.empty,"UNKNOWN",Some("completed"), "abc",Seq.empty,mock[CodeableConcept], Seq.empty, Seq.empty)
 
       order1.additionalInstructions must equalTo("Addition")
       order2.additionalInstructions must equalTo("")
 
     }
+
+    "update and copy an existing medication order" in {
+
+      val instructions = DosageInstruction(Some("1-0-1-0"),Some(CodeableConcept(Seq.empty,Some("Addition"))))
+      val codeableConcept = mock[CodeableConcept]
+      val order1 = MedicationOrder("", Seq.empty,"UNKNOWN",None, "abc",Seq.empty,codeableConcept, Seq(instructions), Seq(mock[Event]))
+      val order2 = MedicationOrder("", Seq.empty,"FIXED",Some("completed"), "abc",Seq(mock[Annotation]),mock[CodeableConcept], Seq.empty, Seq(mock[Event]))
+
+      val r = order1.update(order2)
+
+      r.entryType must equalTo("FIXED")
+      r.notes.length must equalTo(1)
+      r.medicationCodeableConcept must equalTo(codeableConcept)
+      r.dosageInstructions must equalTo(Seq.empty)
+      r.eventHistory.length must equalTo(1)
+
+    }
+
+
   }
 
 }

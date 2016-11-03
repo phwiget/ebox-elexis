@@ -1,7 +1,5 @@
 package controllers.medication
 
-import java.lang.String
-
 import helpers.{RequestHelpers, Sessions}
 import play.api.test.{FakeRequest, PlaySpecification}
 

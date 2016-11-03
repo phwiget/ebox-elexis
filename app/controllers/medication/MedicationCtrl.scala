@@ -5,10 +5,11 @@ import controllers.Errors
 import controllers.actions.Actions
 import models.medication.{Formats, MedicationService}
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc.Controller
 import Formats.medicationOrderWrites
 import models.medication.dal.MedicationDAO
+import utils.JsonUtils._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -38,8 +39,17 @@ class MedicationCtrl @Inject()(actions: Actions, mediationService: MedicationSer
 
   def save() = IsAuthenticated.async{implicit request =>
 
-    Future(Ok(Json.obj("status" -> "success")))
+    import models.medication.Formats._
+    request.body.asJson.get.validate(medicationOrderReads).fold(
 
+      e => Future(BadRequest(e.toJson)),
+
+      mo => mediationService.update(mo).map(_.fold(
+        e => BadRequest(JsError(e).errors.toJson),
+        r => Ok(Json.obj("id" -> r))
+      ))
+
+    )
   }
 
 }

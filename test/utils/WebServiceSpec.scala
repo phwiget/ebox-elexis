@@ -1,6 +1,7 @@
 package utils
 
 import mockws.MockWS
+import models.fhir.XmlRepresentation
 import models.request.UserRequest
 import models.user.User
 import org.specs2.mock.Mockito
@@ -31,16 +32,21 @@ class WebServiceSpec extends PlaySpecification with Mockito{
     "wrap all request in a standardized manner" in {
 
       val converter: NodeSeq => String = (n: NodeSeq) => n.text
+      val converter2: NodeSeq => String = (n: NodeSeq) => (n \ "@url").headOption.map(_.text).getOrElse("")
+
       val request = mock[UserRequest[AnyContent]]
       request.user returns mock[User]
       request.user.token returns "SECRET_TOKEN"
 
+      val xml = mock[XmlRepresentation]
+      xml.toXML returns <hello></hello>
+
       val r1 = await(service.request("/test",GET)(converter,request))
       val r2 = await(service.request("/fail",GET)(converter,request))
-      val r3 = await(service.request("/test",POST, Some(Json.obj("bac"-> "test")))(converter,request))
+      val r3 = await(service.request("/test",POST, Some(xml))(converter,request))
       val r4 = await(service.request("/abc", GET)(converter,request))
-      val r5 = await(service.request("/put/something", PUT)(converter,request))
-      val r6 = await(service.request("/put/wrongly", PUT)(converter,request))
+      val r5 = await(service.request("/put/something", PUT)(converter2,request))
+      val r6 = await(service.request("/put/wrongly", PUT)(converter2,request))
 
       r1.isRight must equalTo(true)
       r1.right.get must equalTo("test")

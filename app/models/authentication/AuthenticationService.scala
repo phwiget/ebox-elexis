@@ -66,7 +66,8 @@ class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, 
     * @param username Username
     * @return
     */
-  def find(username: String): Option[User] = cache.get[User](CacheKey + username)
+  //TODO: Get user from API if not found in cache
+  def find(username: String): Option[User] = cache.getOrElse[Option[User]](CacheKey + username)(Some(ElexisUser("id",Seq.empty, Seq.empty, "Elexis", "token")))
 
 
   /**

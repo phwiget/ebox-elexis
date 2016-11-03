@@ -45,11 +45,30 @@ describe('the medication service', () => {
 
     it('updates the cache', () => {
 
-        service.cache = {"a" : [{id:"id", value:"initial"},{id:"id2", value:"test"}], "b" : {test:"test2"}};
-        service.updateCache({id:"id", value:"final"}, "a",service);
-        service.updateCache({id:"idid", value:"final"}, "c",service);
-        expect(service.cache["a"][0].value).toBe("final");
-        expect(service.cache["b"].test).toBe("test2");
+        service.cache = {
+            "medications_a" : [{id:"id", value:"initial", isHistory: false},{id:"id2", value:"test"}], 
+            "medications_b" : [{test:"test2"}],
+            "history_a": [{id:"id", value:"initial", isHistory: false},{id:"id2", value:"test"}]
+        };
+        
+        service.updateCache("a", "idNew", {id:"id", value:"final"}, "a",service);
+        service.updateCache("b","", {id:"idid", value:"final"}, "c",service);
+        service.updateCache("c","", {id:"idid", value:"final"}, "c",service);
+
+
+        expect(service.cache["medications_a"][0].value).toBe("test");
+        expect(service.cache["medications_a"][0].id).toBe("id2");
+        expect(service.cache["medications_a"][1].id).toBe("idNew");
+        expect(service.cache["medications_a"][1].value).toBe("final");
+
+        expect(service.cache["history_a"][0].value).toBe("initial");
+        expect(service.cache["history_a"][0].isHistory).toBe(true);
+        expect(service.cache["history_a"][1].id).toBe("id2");
+        expect(service.cache["history_a"][1].value).toBe("test");
+        expect(service.cache["history_a"][2].id).toBe("idNew");
+        expect(service.cache["history_a"][2].value).toBe("final");
+
+        expect(service.cache["medications_b"][0].test).toBe("test2");
 
     });
 

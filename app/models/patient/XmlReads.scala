@@ -4,9 +4,9 @@ import models.person.converters.Converters._
 
 import scala.xml.NodeSeq
 
-object Converters {
+object XmlReads {
 
-  implicit val patientConverter = (xml: NodeSeq) => {
+  implicit val patientReads = (xml: NodeSeq) => {
 
       Patient(
         (xml \ "id" \ "@value").text,
@@ -17,17 +17,19 @@ object Converters {
 
   }
 
-  implicit val mayBePatientConverter = (xml: NodeSeq) => {
+  implicit val mayBePatientReads = (xml: NodeSeq) => {
 
-    (xml \ "Patient").headOption.map(patientConverter)
+    (xml \ "Patient").headOption.map(patientReads)
 
+
+  }
+
+  implicit val patientsReads = (xml: NodeSeq) => {
+
+    (xml \\ "Patient").map(patientReads)
 
   }
 
-  implicit val patientsConverter = (xml: NodeSeq) => {
 
-    (xml \\ "Patient").map(patientConverter)
-
-  }
 
 }

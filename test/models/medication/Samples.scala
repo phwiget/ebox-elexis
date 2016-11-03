@@ -36,6 +36,7 @@ trait Samples {
         </coding>
         <text value="JANUVIA 100 mg Filmtabl"></text>
       </medicationCodeableConcept>
+      <patient id="h3601b347f538282b065"></patient>
       <dosageInstruction>
         <text value="1-1-0-1"></text>
       </dosageInstruction>

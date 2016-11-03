@@ -1,6 +1,7 @@
 package models
 
 
+import models.medication.MedicationOrder
 import play.api.mvc.QueryStringBindable
 import play.core.routing._
 
@@ -10,7 +11,7 @@ class Endpoints {
   /**
     * Construct a correctly encoded url-query with parameters<br>
     * The snippet is taken from the Play! source code
-    * @param parameters
+    * @param parameters Url parameters as Map[String,String]
     * @return
     */
   def query(parameters: Map[String,String]): String =  queryString(
@@ -35,6 +36,7 @@ class Endpoints {
 
     val list = (patientId: String) => BaseUrl + "/MedicationOrder" +  query("patient",patientId)
     val detail = (id: String) => BaseUrl + "/MedicationOrder/" +  id
+    val update = (medicationOrder: MedicationOrder) => detail(medicationOrder.id)
 
   }
 

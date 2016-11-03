@@ -35,7 +35,7 @@ export class MedicationService{
             let medications = r.response.map((m) => {
                 return new MedicationOrder(m);
             });
-            
+
             this.cache[key] = medications;
 
             return Promise.resolve(medications);
@@ -64,17 +64,11 @@ export class MedicationService{
 
     save(medicationOrder: MedicationOrder, patientId: string): Promise<any>{
 
-        let keyNonHistory =  this.key(patientId,false);
-        let keyHistory = this.key(patientId, true);
-
-        var self = this;
-
         medicationOrder.update();
 
         return this.httpService.post(jsRoutes.controllers.medication.MedicationCtrl.save().url, medicationOrder).then(r => {
 
-            this.updateCache(medicationOrder,keyNonHistory, self);
-            this.updateCache(medicationOrder, keyHistory,self);
+            this.updateCache(patientId, r.response.id, medicationOrder);
 
             return Promise.resolve(r.response);
 
@@ -86,71 +80,32 @@ export class MedicationService{
 
     }
 
-    private updateCache(medicationOrder: any, key: string, scope: any){
+    private updateCache(patientId: string, id: string, medicationOrder: MedicationOrder){
 
-        if (this.cache[key] == null){return;}
+        let keyNonHistory =  this.key(patientId,false);
+        let keyHistory = this.key(patientId, true);
 
-        this.cache[key] = this.cache[key].map(entry =>{
+        var oldId = medicationOrder.id;
+        medicationOrder.id = id;
 
-            return (entry.id === medicationOrder.id) ? medicationOrder : entry
+        if (this.cache[keyHistory] != null){
+            
+            this.cache[keyHistory].push(medicationOrder);
+            this.cache[keyHistory].forEach(entry =>{if (entry.id === oldId) entry.isHistory = true;});
+            
+        }
 
-        });
+        if (this.cache[keyNonHistory] != null){
+
+            this.cache[keyNonHistory].push(medicationOrder);
+
+            var oldMedicationOrder = this.cache[keyNonHistory].filter(m => m.id === oldId)[0];
+            this.cache[keyNonHistory].splice(this.cache[keyNonHistory].indexOf(oldMedicationOrder),1);
+
+        }
+
 
     }
 
-    // concatInstructions(medication: any){
-    //
-    //     if (medication.additionalInstructions == null && medication.instructions != null){
-    //         medication.dosage = medication.instructions;
-    //     } else if (medication.additionalInstructions != null && medication.instructions != null) {
-    //         medication.dosage = medication.instructions + ", " + medication.additionalInstructions;
-    //     }
-    //
-    //     return medication;
-    // }
-    //
-    // extractPosology(medication: any){
-    //
-    //     var pattern = /^([0-9.]{1,5})([-])([0-9.]{1,5})([-])([0-9.]{1,5})([-])([0-9.]{0,5})([0-9])$/;
-    //     var str = pattern.exec(medication.instructions);
-    //
-    //     if (str !== null){
-    //
-    //         medication.posology = {};
-    //
-    //         str[0].split("-").forEach((d,i) => {
-    //
-    //             var dosage = parseFloat(d);
-    //             switch(i){
-    //                 case 0:
-    //                     medication.posology.morning = dosage;
-    //                     break;
-    //                 case 1:
-    //                     medication.posology.midday = dosage;
-    //                     break;
-    //                 case 2:
-    //                     medication.posology.evening = dosage;
-    //                     break;
-    //                 case 3:
-    //                     medication.posology.night = dosage;
-    //             }
-    //
-    //         });
-    //     }
-    //
-    //     return medication;
-    // }
-    //
-    // addInstructions(m: any){
-    //
-    //     let keys = ["morning", "midday", "evening", "night"];
-    //
-    //     m.instructions = keys.map(function (key) {
-    //
-    //         return (m.posology[key] == null) ? "0" : m.posology[key].toString();
-    //
-    //     }).join("-");
-    //
-    // }
 
 }

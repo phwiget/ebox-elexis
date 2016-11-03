@@ -1,4 +1,4 @@
-package models.fhir.converters
+package models.fhir.formats
 
 import models.fhir.{Annotation, CodeableConcept, Coding, Event}
 import org.joda.time.DateTime
@@ -6,25 +6,27 @@ import org.joda.time.format.ISODateTimeFormat
 
 import scala.xml.NodeSeq
 
-object Converters {
+object XmlReads {
 
-  lazy val dateFormatter = ISODateTimeFormat.dateTimeNoMillis()
+  private lazy val dateFormatter = ISODateTimeFormat.dateTimeNoMillis()
 
-  implicit val codingConverter = (xml: NodeSeq) =>
+  implicit val contentLocationReads = (xml: NodeSeq) => (xml \ "@url").headOption.map(_.text).getOrElse("")
+
+  implicit val codingReads = (xml: NodeSeq) =>
 
     Coding(
       (xml \ "system" \ "@value").headOption.map(_.text),
       (xml \ "code" \ "@value").headOption.map(_.text)
     )
 
-  implicit val codeableConceptConverter = (xml: NodeSeq) =>
+  implicit val codeableConceptReads = (xml: NodeSeq) =>
 
     CodeableConcept(
-      (xml \\ "coding").map(codingConverter),
+      (xml \\ "coding").map(codingReads),
       (xml \ "text" \ "@value").headOption.map(_.text)
     )
 
-  implicit val annotationConverter = (xml: NodeSeq) =>
+  implicit val annotationReads = (xml: NodeSeq) =>
 
     Annotation(
       (xml \ "author" \ "@value").headOption.map(_.text),
@@ -32,12 +34,12 @@ object Converters {
       (xml \ "text" \ "@value").text
     )
 
-  implicit val eventHistoryConverter = (xml: NodeSeq) =>
+  implicit val eventHistoryReads = (xml: NodeSeq) =>
 
     Event(
       (xml \ "status" \ "@value").text,
       (xml \ "dateTime" \ "@value").headOption.map(d => DateTime.parse(d.text,dateFormatter)).get,
-      (xml \ "action" ).headOption.map(codeableConceptConverter),
-      (xml \ "reason" ).headOption.map(codeableConceptConverter)
+      (xml \ "action" ).headOption.map(codeableConceptReads),
+      (xml \ "reason" ).headOption.map(codeableConceptReads)
     )
 }

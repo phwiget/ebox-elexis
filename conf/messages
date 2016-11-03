@@ -1,6 +1,4 @@
-#ERRORS
-error.user.unauthorized = Das Login war nicht erfolgreich...
-error.server.unavailable = Der Elexis-Server konnte nicht erreicht werden...
+
 
 #Login
 login.wiki = Wiki
@@ -8,6 +6,8 @@ login.header = Login
 login.username = Benutzername
 login.password = Passwort
 login.login = Login
+## Errors
+error.user.unauthorized = Das Login war nicht erfolgreich...
 
 #Navigation bar
 navbar.home = Übersicht
@@ -58,12 +58,23 @@ medication.edit.stop.incompatibility = Unverträglichkeit
 medication.edit.delete = Löschen
 medication.edit.save = Speichern
 medication.edit.save.success = Die Medikation wurde gespeichert
+### Errors
+error.expected.date.time = Falsche Datumformat
+error.dateEnded.before.dateWritten = Das Stoppdatum ist vor dem Startdatum
+
 
 #Agenda
 agenda.title = Agenda
 
 #Settings
 settings.authentication.title = Zwei-Faktor Authentisierung
+
+# General Errors
+## FHIR Server
+error.server.unavailable = Elexis konnte nicht erreicht werden...
+## General missing error
+error.default.message = Angaben fehlend oder falsch (rot markiert)
+
 
 
 

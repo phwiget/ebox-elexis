@@ -2,7 +2,7 @@ package models.patient.dal
 
 import com.google.inject.Inject
 import models.Endpoints
-import models.patient.{Converters, Patient}
+import models.patient.{XmlReads, Patient}
 import models.request.UserRequest
 import play.api.http.HttpVerbs._
 import play.api.mvc.AnyContent
@@ -12,7 +12,7 @@ import scala.concurrent.Future
 
 class PatientDAO @Inject()(webService: WebService, endpoints: Endpoints) {
 
-  import Converters._
+  import XmlReads._
 
   def list(search: String)(implicit request: UserRequest[AnyContent]): Future[Either[String,Seq[Patient]]] = {
 

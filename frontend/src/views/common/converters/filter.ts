@@ -1,13 +1,15 @@
 
 export class FilterValueConverter {
 
+
     toView(array: Array<any>, expression: string) {
 
-        if (array== null || expression == null) {return array;}
+        if (array== null || expression == null || expression === "") {return array;}
 
         return this.filterArray(array, expression.toLowerCase());
 
     }
+
 
     private filterObject(obj: Object, expression: string): boolean{
 
@@ -23,7 +25,7 @@ export class FilterValueConverter {
 
                 (Object.prototype.toString.call(child) === '[object Array]' ) ? match = this.filterArray(child, expression) :
 
-                    (child == null) ? match= false: match = child.toString().toLowerCase().indexOf(expression) !== -1;
+                    (child == null) ? match= false: match = child.toString().toLowerCase().indexOf(expression) > -1;
 
             if (match){break;}
         }

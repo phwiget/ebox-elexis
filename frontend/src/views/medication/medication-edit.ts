@@ -18,7 +18,7 @@ export class MedicationEdit extends Materialize{
     medication: MedicationOrder;
     saving: boolean = false;
     success: boolean = false;
-    errors: Array<any>;
+    e: any;
 
 
     constructor(ms: MedicationService, ps: PatientService){
@@ -78,10 +78,10 @@ export class MedicationEdit extends Materialize{
         this.medicationService.save(this.medication, this.patient.id).then(r => {
 
             this.success = true;
-
+            
         }, e => {
 
-            this.errors = e;
+            this.e = e;
 
         }).then(() => {
             setTimeout(() => {

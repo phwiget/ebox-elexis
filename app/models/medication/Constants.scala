@@ -9,6 +9,8 @@ object Constants {
   object EntryTypes{
     val ReserveMedication = "RESERVE_MEDICATION"
     val Unknown = "UNKNOWN"
+
+    def list = Seq(ReserveMedication, Unknown)
   }
 
 

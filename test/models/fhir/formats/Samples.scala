@@ -1,6 +1,8 @@
-package models.fhir.converters
+package models.fhir.formats
 
 trait Samples {
+
+  val contentLocation1 =  <contentLocation url="http://localhost/resource"/>
 
   val coding1 =
     <coding>

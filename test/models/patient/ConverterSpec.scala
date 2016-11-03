@@ -1,7 +1,7 @@
 package models.patient
 
 import play.api.test.PlaySpecification
-import Converters._
+import XmlReads._
 
 class ConverterSpec extends PlaySpecification with Samples{
 
@@ -9,7 +9,7 @@ class ConverterSpec extends PlaySpecification with Samples{
 
     "convert to a patient" in {
 
-      val p = patientConverter(patient1)
+      val p = patientReads(patient1)
       p.fullName must equalTo("Maria Meier")
       p.id must equalTo("if69a4f3141137d308")
       p.gender must equalTo("female")
@@ -18,18 +18,18 @@ class ConverterSpec extends PlaySpecification with Samples{
 
     "convert to an optional patient" in {
 
-      mayBePatientConverter(patientsEmpty).isEmpty must equalTo(true)
+      mayBePatientReads(patientsEmpty).isEmpty must equalTo(true)
 
     }
 
 
     "convert to patients" in {
 
-      val patients = patientsConverter(patients1)
+      val patients = patientsReads(patients1)
       patients.length must equalTo(2)
       patients.last.fullName must equalTo("Miroslav Jabui")
 
-      patientsConverter(patientsEmpty).length must equalTo(0)
+      patientsReads(patientsEmpty).length must equalTo(0)
 
     }
 

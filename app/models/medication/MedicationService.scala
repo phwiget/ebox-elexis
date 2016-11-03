@@ -1,5 +1,7 @@
 package models.medication
 
+import java.net.URI
+
 import com.google.inject.Inject
 import models.medication.dal.MedicationDAO
 import models.request.UserRequest
@@ -18,5 +20,16 @@ class MedicationService @Inject()(medicationDAO: MedicationDAO) {
 
   }
 
+  def update(medicationOrder: MedicationOrder)(implicit request: UserRequest[AnyContent]) = {
+
+    medicationDAO.detail(medicationOrder.id).flatMap(_.fold(
+      e => Future(Left(e)),
+      mo => medicationDAO.update(mo.update(medicationOrder)).map(_.right.map{s =>
+        val path = new URI(s).getPath
+        path.substring(path.lastIndexOf('/') + 1)
+      })
+    ))
+
+  }
 
 }
