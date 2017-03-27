@@ -32,10 +32,8 @@ export class MedicationService{
 
         return this.httpService.get(jsRoutes.controllers.medication.MedicationCtrl.list(patientId, history).url).then(r => {
 
-            let medications = r.response.map((m) => {
-                return new MedicationOrder(m);
-            });
-
+            let medications: Array<MedicationOrder> = r.response.map(m =>  new MedicationOrder(m));
+            
             this.cache[key] = medications;
 
             return Promise.resolve(medications);

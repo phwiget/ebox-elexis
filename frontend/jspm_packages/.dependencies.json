@@ -194,5 +194,5 @@
     "util": "github:jspm/nodelibs-util@^0.1.0"
   },
   "npm:aurelia-fetch-client@1.0.1": {},
-  "github:github/fetch@1.0.0": {}
+  "github:github/fetch@1.1.1": {}
 }
