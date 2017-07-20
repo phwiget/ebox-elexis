@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import models.authentication.Formats._
-import play.api.{Environment, Configuration}
+import play.api. Configuration
 
 class AuthenticationService @Inject()(wSClient: WSClient, endpoints: Endpoints, cache: CacheApi)(conf: Configuration) {
 

@@ -1,15 +1,20 @@
 package models
 
 import org.specs2.mock.Mockito
+import play.api.Configuration
 import play.api.test.PlaySpecification
 
 class EndpointsSpec extends PlaySpecification with Mockito{
 
-  val endpoints = new Endpoints
+  private val config = mock[Configuration]
+  private val endpoints = new Endpoints(config)
 
   "Endpoint" should {
 
     "return endpoints" in {
+
+      config.getString("application.elexis.server.port") returns Some("8380")
+      config.getString("application.elexis.server.baseUrl") returns Some("http://localhost")
 
       endpoints.BaseUrl must equalTo("http://localhost:8380/fhir")
 

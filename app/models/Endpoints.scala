@@ -1,12 +1,18 @@
 package models
 
 
+import com.google.inject.Inject
 import models.medication.MedicationOrder
+import play.api.Configuration
 import play.api.mvc.QueryStringBindable
 import play.core.routing._
 
 
-class Endpoints {
+class Endpoints @Inject()(configuration: Configuration) {
+
+  private lazy val port = configuration.getString("application.elexis.server.port").getOrElse("8380")
+  private lazy val url  = configuration.getString("application.elexis.server.baseUrl").getOrElse("http://localhost")
+  lazy val BaseUrl =s"$url:$port/fhir"
 
   /**
     * Construct a correctly encoded url-query with parameters<br>
@@ -19,8 +25,6 @@ class Endpoints {
   )
 
   def query(key: String, value: String): String = query(Map(key -> value))
-
-  val BaseUrl ="http://localhost:8380/fhir"
 
   object Authentication{
     val login = BaseUrl + "/login"
