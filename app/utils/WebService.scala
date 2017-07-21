@@ -3,8 +3,8 @@ package utils
 import com.google.inject.Inject
 import models.fhir.XmlRepresentation
 import models.request.UserRequest
+import play.api.Logger
 import play.api.http.Status
-import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.http.HttpVerbs._
 import play.api.http.HeaderNames._
@@ -66,7 +66,10 @@ class WebService @Inject()(wSClient: WSClient) {
         case Status.CREATED => Right(converter(<contentLocation url={r.header(CONTENT_LOCATION).orNull}/>))
         case _ => Left("error.server.status." + r.status.toString)
 
-      }) recover {case t: Throwable => Left("error.server.unavailable")}
+      }) recover {case t: Throwable =>
+        Logger.error(s"Server unavailable on ${wsRequest.url}")
+        Left("error.server.unavailable")
+    }
 
   }
 }

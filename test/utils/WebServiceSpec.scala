@@ -5,10 +5,7 @@ import models.fhir.XmlRepresentation
 import models.request.UserRequest
 import models.user.User
 import org.specs2.mock.Mockito
-import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 import play.api.test.PlaySpecification
-import play.api.http.HttpVerbs._
-import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Results}
 
 import scala.xml.NodeSeq
