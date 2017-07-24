@@ -1,8 +1,8 @@
-#Ebox-Elexis Web-Application
+# Ebox-Elexis Web-Application
 
 eBox-Elexis is intentend to provide remote access to the ebox-elexis.
 
-##Setup
+## Setup
 
 * `git clone`
 * resolve front-end dependencies: 
@@ -19,25 +19,25 @@ eBox-Elexis is intentend to provide remote access to the ebox-elexis.
 * open browser and access `localhost:9000`
 * have fun
 
-##Running tests
+## Running tests
 * `activator test`
 * javascript: 
     * `cd frontend` 
     * `gulp test`
 
-##Development Frontend
+## Development Frontend
 * `gulp watch`
 * May disable caching in browser
 
-##Development Backend
+## Development Backend
 * `activator ~run` or
 * `activator ~compile` etc
 
-##Both together
+## Both together
 * `activator run` or
 * `gulp watch` (in /frontend)
 * Access localhost:3000 and enjoy auto-refresh
   * Chrome is much faster at reloading than Firefox
 
-##Elexis-Server
+## Elexis-Server
 <https://github.com/elexis/elexis-server>
