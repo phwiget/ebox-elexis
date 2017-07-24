@@ -64,8 +64,9 @@ class WebService @Inject()(wSClient: WSClient) {
       r.status match{
         case Status.OK => Right(converter(r.xml))
         case Status.CREATED => Right(converter(<contentLocation url={r.header(CONTENT_LOCATION).orNull}/>))
-        case _ => Left("error.server.status." + r.status.toString)
-
+        case _ =>
+          Logger.error(s"Client error ${r.status}: ${r.body}")
+          Left("error.server.status." + r.status.toString)
       }) recover {case t: Throwable =>
         Logger.error(s"Server unavailable on ${wsRequest.url}")
         Left("error.server.unavailable")

@@ -14,7 +14,7 @@ class WebServiceSpec extends PlaySpecification with Mockito{
 
   val ws = MockWS {
     case (GET, "/test") => Action { Results.Ok(<test value="Test">test</test>)}
-    case (GET, "/fail") => Action { Results.BadRequest }
+    case (GET, "/fail") => Action { Results.BadRequest(<test value="Error">Error</test>)}
     case (POST, "/test") => Action { Results.Ok(<test value="Test">test</test>) }
     case (GET, "/abc") =>   Action { val x = 1/0; Results.Ok(x.toString) }
     case (PUT, "/put/something") => Action{Results.Created.withHeaders((CONTENT_LOCATION, "http://localhost/xyz"))}
